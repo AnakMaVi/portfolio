@@ -1,0 +1,28 @@
+@import 'tailwindcss';
+
+:root {
+  --portfolio-bg: #0b0f19;
+  --portfolio-text: #e2e8f0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  background: radial-gradient(circle at 10% 10%, #111a2f 0%, var(--portfolio-bg) 45%),
+    radial-gradient(circle at 95% 95%, #0f192a 0%, transparent 35%),
+    var(--portfolio-bg);
+  color: var(--portfolio-text);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

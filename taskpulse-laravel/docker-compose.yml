@@ -1,0 +1,59 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: taskpulse-app
+    working_dir: /var/www/html
+    volumes:
+      - ./:/var/www/html
+    ports:
+      - "8080:8000"
+    env_file:
+      - .env
+    depends_on:
+      - postgres
+      - redis
+    command: sh -c "composer install --no-interaction --prefer-dist --ignore-platform-req=ext-posix && php artisan key:generate --force && php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=8000"
+
+  horizon:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: taskpulse-horizon
+    working_dir: /var/www/html
+    volumes:
+      - ./:/var/www/html
+    env_file:
+      - .env
+    depends_on:
+      - app
+      - redis
+      - postgres
+    command: sh -c "composer install --no-interaction --prefer-dist --ignore-platform-req=ext-posix && php artisan horizon"
+
+  postgres:
+    image: postgres:16
+    container_name: taskpulse-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: taskpulse
+      POSTGRES_USER: taskpulse
+      POSTGRES_PASSWORD: taskpulse
+    ports:
+      - "5432:5432"
+    volumes:
+      - taskpulse-postgres-data:/var/lib/postgresql/data
+
+  redis:
+    image: redis:7-alpine
+    container_name: taskpulse-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - taskpulse-redis-data:/data
+
+volumes:
+  taskpulse-postgres-data:
+  taskpulse-redis-data:
