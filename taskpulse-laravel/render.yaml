@@ -2,7 +2,8 @@ services:
   - type: web
     name: taskpulse-api
     runtime: docker
-    dockerfilePath: ./Dockerfile
+    dockerfilePath: ./taskpulse-laravel/Dockerfile
+    dockerContext: ./taskpulse-laravel
     plan: starter
     envVars:
       - key: APP_ENV
@@ -51,7 +52,8 @@ services:
   - type: worker
     name: taskpulse-horizon
     runtime: docker
-    dockerfilePath: ./Dockerfile
+    dockerfilePath: ./taskpulse-laravel/Dockerfile
+    dockerContext: ./taskpulse-laravel
     plan: starter
     dockerCommand: php artisan horizon
     envVars:
