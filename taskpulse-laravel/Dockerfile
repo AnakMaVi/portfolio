@@ -14,9 +14,12 @@ RUN apt-get update \
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 COPY composer.json composer.lock ./
-RUN composer install --no-interaction --prefer-dist --optimize-autoloader --ignore-platform-req=ext-posix
+RUN composer install --no-interaction --prefer-dist --no-dev --no-scripts --ignore-platform-req=ext-posix
 
 COPY . .
+
+RUN composer dump-autoload --optimize --no-dev \
+    && php artisan package:discover --ansi
 
 EXPOSE 8000
 
