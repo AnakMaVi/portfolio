@@ -53,7 +53,7 @@ services:
     runtime: docker
     dockerfilePath: ./Dockerfile
     plan: starter
-    startCommand: php artisan horizon
+    dockerCommand: php artisan horizon
     envVars:
       - key: APP_ENV
         value: production
@@ -89,18 +89,21 @@ services:
           property: password
       - key: REDIS_HOST
         fromService:
-          type: redis
+          type: keyvalue
           name: taskpulse-redis
           property: host
       - key: REDIS_PORT
         fromService:
-          type: redis
+          type: keyvalue
           name: taskpulse-redis
           property: port
 
-  - type: redis
+  - type: keyvalue
     name: taskpulse-redis
     plan: starter
+    ipAllowList:
+      - source: 0.0.0.0/0
+        description: public access for app and worker
 
 
 databases:
