@@ -108,4 +108,4 @@ services:
 
 databases:
   - name: taskpulse-postgres
-    plan: starter
+    plan: basic-256mb
