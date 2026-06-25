@@ -1,6 +1,9 @@
 import { useMemo, useState } from 'react'
 import RetroForgeShowcase from './RetroForgeShowcase.jsx'
 
+const TASKPULSE_API_BASE =
+  import.meta.env.VITE_TASKPULSE_API_BASE ?? 'https://taskpulse-api-dxz8.onrender.com'
+
 const PROJECTS_MOCK = [
   {
     id: 'aegismind',
@@ -119,6 +122,107 @@ function GenericProjectDetail({ project }) {
   )
 }
 
+function TaskPulseDetail({ project }) {
+  const [requestState, setRequestState] = useState('idle')
+  const [apiResult, setApiResult] = useState(null)
+
+  const latestMetricsUrl = `${TASKPULSE_API_BASE}/api/v1/sprints/1/metrics/latest`
+
+  const testLatestMetrics = async () => {
+    setRequestState('loading')
+    setApiResult(null)
+
+    try {
+      const response = await fetch(latestMetricsUrl, {
+        method: 'GET',
+        headers: {
+          Accept: 'application/json'
+        }
+      })
+
+      const contentType = response.headers.get('content-type') ?? ''
+      const body = contentType.includes('application/json')
+        ? await response.json()
+        : await response.text()
+
+      setApiResult({
+        status: response.status,
+        ok: response.ok,
+        body
+      })
+      setRequestState(response.ok ? 'success' : 'error')
+    } catch (error) {
+      setApiResult({
+        status: null,
+        ok: false,
+        body: error instanceof Error ? error.message : 'Error de red no identificado'
+      })
+      setRequestState('error')
+    }
+  }
+
+  return (
+    <article className="space-y-4 rounded-xl border border-cyan-400/35 bg-slate-950/50 p-5">
+      <h4 className="m-0 text-lg font-semibold text-slate-100">Demo Operativa TaskPulse</h4>
+      <p className="m-0 text-sm leading-relaxed text-slate-300">{project.summary}</p>
+
+      <div className="grid gap-4 sm:grid-cols-2">
+        <div className="rounded-lg border border-slate-700/60 bg-slate-900/65 p-4">
+          <p className="m-0 text-xs uppercase tracking-[0.14em] text-cyan-300">Stack</p>
+          <ul className="mt-2 list-disc space-y-1 pl-4 text-sm text-slate-300">
+            {project.stack.map((item) => (
+              <li key={`taskpulse-${item}`}>{item}</li>
+            ))}
+          </ul>
+        </div>
+
+        <div className="rounded-lg border border-slate-700/60 bg-slate-900/65 p-4">
+          <p className="m-0 text-xs uppercase tracking-[0.14em] text-cyan-300">Acciones en vivo</p>
+          <div className="mt-3 space-y-2">
+            <button
+              type="button"
+              onClick={() => window.open(TASKPULSE_API_BASE, '_blank', 'noopener,noreferrer')}
+              className="w-full rounded-lg border border-cyan-300/60 bg-cyan-500/15 px-3 py-2 text-left text-sm font-medium text-cyan-100 transition hover:bg-cyan-500/25"
+            >
+              Abrir servicio TaskPulse
+            </button>
+
+            <button
+              type="button"
+              onClick={testLatestMetrics}
+              disabled={requestState === 'loading'}
+              className="w-full rounded-lg border border-slate-600/80 px-3 py-2 text-left text-sm font-medium text-slate-100 transition hover:border-cyan-300 disabled:cursor-not-allowed disabled:opacity-60"
+            >
+              {requestState === 'loading'
+                ? 'Consultando endpoint latest...'
+                : 'Probar endpoint /metrics/latest'}
+            </button>
+          </div>
+
+          <p className="mt-3 break-all text-xs text-slate-400">Base API: {TASKPULSE_API_BASE}</p>
+        </div>
+      </div>
+
+      {apiResult ? (
+        <div className="rounded-lg border border-slate-700/70 bg-slate-900/75 p-4">
+          <p className="m-0 text-xs uppercase tracking-[0.14em] text-cyan-300">Respuesta endpoint</p>
+          <p className="mt-2 text-sm text-slate-300">
+            Status:{' '}
+            <strong className={apiResult.ok ? 'text-emerald-300' : 'text-rose-300'}>
+              {apiResult.status ?? 'sin codigo'}
+            </strong>
+          </p>
+          <pre className="mt-2 max-h-60 overflow-auto rounded-md border border-slate-700/70 bg-slate-950/80 p-3 text-xs text-slate-200">
+            {typeof apiResult.body === 'string'
+              ? apiResult.body
+              : JSON.stringify(apiResult.body, null, 2)}
+          </pre>
+        </div>
+      ) : null}
+    </article>
+  )
+}
+
 function ProjectsExplorer() {
   const [searchQuery, setSearchQuery] = useState('')
   const [activeCategory, setActiveCategory] = useState('Todos')
@@ -231,6 +335,8 @@ function ProjectsExplorer() {
 
           {selectedProject.id === 'retroforge' ? (
             <RetroForgeShowcase />
+          ) : selectedProject.id === 'taskpulse' ? (
+            <TaskPulseDetail project={selectedProject} />
           ) : (
             <GenericProjectDetail project={selectedProject} />
           )}
