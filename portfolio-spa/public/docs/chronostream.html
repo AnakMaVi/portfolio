@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ChronoStream | Documentacion Tecnica</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #081224;
+      --panel: #12223a;
+      --line: #2b4467;
+      --ink: #e4eefb;
+      --muted: #99afca;
+      --accent: #5bd9ff;
+      --good: #34d399;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: radial-gradient(1200px 500px at right top, rgba(91, 217, 255, 0.14), transparent 62%), var(--bg);
+      color: var(--ink);
+      min-height: 100vh;
+    }
+
+    .wrap {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 24px 14px 40px;
+    }
+
+    .hero, .card {
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(18, 34, 58, 0.95), rgba(13, 24, 43, 0.95));
+      border-radius: 14px;
+      padding: 16px;
+    }
+
+    h1, h2, h3 {
+      margin: 0;
+    }
+
+    h1 { font-size: clamp(1.5rem, 3vw, 2.1rem); }
+    h2 { font-size: 1.1rem; }
+    h3 { font-size: 0.95rem; color: #d2e6ff; }
+
+    p, li { color: var(--muted); line-height: 1.6; }
+
+    .grid {
+      margin-top: 10px;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-top: 10px;
+    }
+
+    .chip {
+      border: 1px solid rgba(91, 217, 255, 0.4);
+      border-radius: 999px;
+      padding: 4px 9px;
+      font-size: 0.78rem;
+      color: #d3f5ff;
+    }
+
+    .section {
+      margin-top: 12px;
+    }
+
+    code {
+      color: var(--accent);
+      font-family: Consolas, Monaco, monospace;
+    }
+
+    pre {
+      margin: 8px 0 0;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 10px;
+      background: #081326;
+      overflow: auto;
+      color: #d2ecff;
+      font-size: 0.82rem;
+      line-height: 1.45;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .toc {
+      margin-top: 10px;
+      display: grid;
+      gap: 6px;
+    }
+
+    .toc a {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 7px 9px;
+      background: rgba(14, 26, 46, 0.75);
+    }
+
+    .kpis {
+      margin-top: 10px;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .kpi {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 10px;
+      background: rgba(8, 19, 38, 0.7);
+    }
+
+    .kpi strong {
+      display: block;
+      margin-top: 4px;
+      color: #e8f7ff;
+      font-size: 1rem;
+    }
+
+    .good {
+      color: var(--good);
+      font-weight: 600;
+    }
+
+    @media (max-width: 860px) {
+      .grid { grid-template-columns: 1fr; }
+      .kpis { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <section class="hero">
+    <h1>ChronoStream | Documentacion Tecnica Detallada</h1>
+    <p>
+      Documento operativo del motor criptografico ChronoStream: arquitectura, contrato Rust/WASM,
+      benchmark en navegador, flujo end-to-end y pipeline de build reproducible.
+    </p>
+    <div class="stack">
+      <span class="chip">Rust + wasm-bindgen</span>
+      <span class="chip">WebAssembly</span>
+      <span class="chip">React + Vite</span>
+      <span class="chip">Benchmark p50/p95</span>
+      <span class="chip">Demo End-to-End</span>
+    </div>
+    <div class="toc">
+      <a href="#arquitectura">1. Arquitectura</a>
+      <a href="#contrato">2. Contrato del modulo</a>
+      <a href="#demo">3. Flujo demo end-to-end</a>
+      <a href="#benchmark">4. Benchmark y metricas</a>
+      <a href="#docker">5. Build y Docker</a>
+      <a href="#seguridad">6. Seguridad y limites</a>
+      <a href="#roadmap">7. Roadmap tecnico</a>
+    </div>
+  </section>
+
+  <section id="arquitectura" class="section card">
+    <h2>1. Arquitectura</h2>
+    <p>
+      ChronoStream separa computo nativo y orquestacion UI: React controla el flujo de interaccion
+      y el modulo WASM ejecuta cifrado/hash en CPU local del navegador.
+    </p>
+    <div class="grid">
+      <div>
+        <h3>Componentes</h3>
+        <ul>
+          <li>Modulo Rust compilado a <code>.wasm</code></li>
+          <li>Bindings JS con <code>wasm-bindgen</code></li>
+          <li>Componente <code>WasmCryptor</code> para demo en vivo</li>
+          <li>Documentacion embebida en <code>/docs/chronostream.html</code></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Principios</h3>
+        <ul>
+          <li>Demo totalmente browser-side (sin backend)</li>
+          <li>Medicion transparente en microsegundos</li>
+          <li>Validacion visible para reclutador</li>
+          <li>Pipeline reproducible local y contenedor</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="contrato" class="section card">
+    <h2>2. Contrato del modulo</h2>
+    <div class="grid">
+      <div>
+        <h3>Funciones exportadas</h3>
+        <ul>
+          <li><code>encrypt_data(input, key)</code>: cifrado XOR y salida Base64</li>
+          <li><code>generate_hash(input)</code>: hash SHA-256 en hexadecimal</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Ubicacion</h3>
+        <ul>
+          <li><code>chronostream-wasm/src/lib.rs</code></li>
+          <li><code>chronostream-wasm/Cargo.toml</code></li>
+          <li><code>chronostream-wasm/pkg</code> (artefactos generados)</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="demo" class="section card">
+    <h2>3. Flujo demo end-to-end</h2>
+    <p>
+      La demo ejecuta un recorrido completo con trazabilidad visual para entrevista tecnica.
+    </p>
+    <pre>Paso 1: Cifrar payload con WASM
+Paso 2: Descifrar y validar round-trip con la misma clave
+Paso 3: Generar hash SHA-256 del bloque de verificacion
+Paso 4: Mostrar estado de cada paso + latencias</pre>
+    <div class="kpis">
+      <div class="kpi">
+        Estado
+        <strong class="good">End-to-End Operativo</strong>
+      </div>
+      <div class="kpi">
+        Validacion
+        <strong>Round-trip si/no</strong>
+      </div>
+      <div class="kpi">
+        Evidencia
+        <strong>Tiempos por etapa (us)</strong>
+      </div>
+    </div>
+  </section>
+
+  <section id="benchmark" class="section card">
+    <h2>4. Benchmark y metricas</h2>
+    <p>
+      Modo benchmark: 100 iteraciones para reducir ruido y comparar WASM vs JS baseline con percentiles.
+    </p>
+    <ul>
+      <li><code>p50</code>: comportamiento tipico</li>
+      <li><code>p95</code>: cola de latencia</li>
+      <li><code>speedup JS/WASM</code>: indicador relativo por percentil</li>
+    </ul>
+  </section>
+
+  <section id="docker" class="section card">
+    <h2>5. Build y Docker</h2>
+    <pre>docker build -t chronostream-wasm-dev c:\htdocs\portfolio\portfolio-spa\chronostream-wasm
+
+docker run --rm -v c:\htdocs\portfolio\portfolio-spa\chronostream-wasm:/work chronostream-wasm-dev
+
+wasm-pack build --target web --release</pre>
+    <p>
+      El Dockerfile instala toolchain y genera <code>pkg/</code> de forma reproducible.
+    </p>
+  </section>
+
+  <section id="seguridad" class="section card">
+    <h2>6. Seguridad y limites</h2>
+    <ul>
+      <li>El cifrado XOR es demostrativo, no apto para produccion.</li>
+      <li>La clave vive en memoria del navegador durante el proceso.</li>
+      <li>No registrar secretos en logs ni telemetria.</li>
+      <li>Upgrade recomendado: AES-GCM o ChaCha20-Poly1305.</li>
+    </ul>
+  </section>
+
+  <section id="roadmap" class="section card">
+    <h2>7. Roadmap tecnico</h2>
+    <ul>
+      <li>Datasets de benchmark escalables (256 KB, 1 MB, 5 MB).</li>
+      <li>Grafica temporal multi-ronda WASM vs JS.</li>
+      <li>Offloading a Web Worker para aislar UI thread.</li>
+      <li>Capa criptografica enterprise y ciclo seguro de claves.</li>
+    </ul>
+    <p>
+      Volver al portfolio: <a href="/">http://127.0.0.1:5173/</a>
+    </p>
+  </section>
+</div>
+</body>
+</html>

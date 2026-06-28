@@ -1,8 +1,11 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import RetroForgeShowcase from './RetroForgeShowcase.jsx'
+import WasmCryptor from './WasmCryptor.jsx'
 
 const TASKPULSE_API_BASE =
   import.meta.env.VITE_TASKPULSE_API_BASE ?? 'https://taskpulse-api-dxz8.onrender.com'
+const TASKPULSE_DOCS_URL =
+  import.meta.env.VITE_TASKPULSE_DOCS_URL ?? 'http://127.0.0.1:8000/docs/taskpulse'
 
 const PROJECTS_MOCK = [
   {
@@ -89,33 +92,33 @@ const PROJECTS_MOCK = [
 
 function GenericProjectDetail({ project }) {
   return (
-    <article className="rounded-xl border border-slate-700/50 bg-slate-950/50 p-5">
-      <h4 className="m-0 text-lg font-semibold text-slate-100">Resumen Tecnico</h4>
-      <p className="mt-2 text-sm leading-relaxed text-slate-300">{project.summary}</p>
+    <article className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
+      <h4 className="m-0 text-lg font-semibold text-slate-900">Resumen Tecnico</h4>
+      <p className="mt-2 text-sm leading-relaxed text-slate-600">{project.summary}</p>
 
       <div className="mt-4 grid gap-4 sm:grid-cols-2">
-        <div className="rounded-lg border border-slate-700/50 bg-slate-900/60 p-4">
-          <p className="m-0 text-xs uppercase tracking-[0.14em] text-cyan-300">Stack</p>
-          <ul className="mt-2 list-disc space-y-1 pl-4 text-sm text-slate-300">
+        <div className="rounded-lg border border-slate-200 bg-slate-50 p-4">
+          <p className="m-0 text-xs uppercase tracking-[0.14em] text-sky-600">Stack</p>
+          <ul className="mt-2 list-disc space-y-1 pl-4 text-sm text-slate-700">
             {project.stack.map((item) => (
               <li key={`${project.id}-${item}`}>{item}</li>
             ))}
           </ul>
         </div>
 
-        <div className="rounded-lg border border-slate-700/50 bg-slate-900/60 p-4">
-          <p className="m-0 text-xs uppercase tracking-[0.14em] text-cyan-300">Categorias</p>
+        <div className="rounded-lg border border-slate-200 bg-slate-50 p-4">
+          <p className="m-0 text-xs uppercase tracking-[0.14em] text-sky-600">Categorias</p>
           <div className="mt-2 flex flex-wrap gap-2">
             {project.categories.map((category) => (
               <span
                 key={`${project.id}-${category}`}
-                className="rounded-full border border-slate-600/70 px-2 py-1 text-xs text-slate-300"
+                className="rounded-full border border-slate-300 bg-white px-2 py-1 text-xs text-slate-700"
               >
                 {category}
               </span>
             ))}
           </div>
-          <p className="mt-4 text-xs text-slate-400">Tiempo estimado total: {project.metricsHours}h</p>
+          <p className="mt-4 text-xs text-slate-500">Tiempo estimado total: {project.metricsHours}h</p>
         </div>
       </div>
     </article>
@@ -162,27 +165,27 @@ function TaskPulseDetail({ project }) {
   }
 
   return (
-    <article className="space-y-4 rounded-xl border border-cyan-400/35 bg-slate-950/50 p-5">
-      <h4 className="m-0 text-lg font-semibold text-slate-100">Demo Operativa TaskPulse</h4>
-      <p className="m-0 text-sm leading-relaxed text-slate-300">{project.summary}</p>
+    <article className="space-y-4 rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
+      <h4 className="m-0 text-lg font-semibold text-slate-900">Demo Operativa TaskPulse</h4>
+      <p className="m-0 text-sm leading-relaxed text-slate-600">{project.summary}</p>
 
       <div className="grid gap-4 sm:grid-cols-2">
-        <div className="rounded-lg border border-slate-700/60 bg-slate-900/65 p-4">
-          <p className="m-0 text-xs uppercase tracking-[0.14em] text-cyan-300">Stack</p>
-          <ul className="mt-2 list-disc space-y-1 pl-4 text-sm text-slate-300">
+        <div className="rounded-lg border border-slate-200 bg-slate-50 p-4">
+          <p className="m-0 text-xs uppercase tracking-[0.14em] text-sky-600">Stack</p>
+          <ul className="mt-2 list-disc space-y-1 pl-4 text-sm text-slate-700">
             {project.stack.map((item) => (
               <li key={`taskpulse-${item}`}>{item}</li>
             ))}
           </ul>
         </div>
 
-        <div className="rounded-lg border border-slate-700/60 bg-slate-900/65 p-4">
-          <p className="m-0 text-xs uppercase tracking-[0.14em] text-cyan-300">Acciones en vivo</p>
+        <div className="rounded-lg border border-slate-200 bg-slate-50 p-4">
+          <p className="m-0 text-xs uppercase tracking-[0.14em] text-sky-600">Acciones en vivo</p>
           <div className="mt-3 space-y-2">
             <button
               type="button"
               onClick={() => window.open(TASKPULSE_API_BASE, '_blank', 'noopener,noreferrer')}
-              className="w-full rounded-lg border border-cyan-300/60 bg-cyan-500/15 px-3 py-2 text-left text-sm font-medium text-cyan-100 transition hover:bg-cyan-500/25"
+              className="w-full rounded-lg border border-sky-300 bg-sky-100 px-3 py-2 text-left text-sm font-medium text-sky-800 transition hover:bg-sky-200"
             >
               Abrir servicio TaskPulse
             </button>
@@ -191,34 +194,221 @@ function TaskPulseDetail({ project }) {
               type="button"
               onClick={testLatestMetrics}
               disabled={requestState === 'loading'}
-              className="w-full rounded-lg border border-slate-600/80 px-3 py-2 text-left text-sm font-medium text-slate-100 transition hover:border-cyan-300 disabled:cursor-not-allowed disabled:opacity-60"
+              className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-left text-sm font-medium text-slate-700 transition hover:border-sky-300 disabled:cursor-not-allowed disabled:opacity-60"
             >
               {requestState === 'loading'
                 ? 'Consultando endpoint latest...'
                 : 'Probar endpoint /metrics/latest'}
             </button>
+
+            <button
+              type="button"
+              onClick={() => window.open(TASKPULSE_DOCS_URL, '_blank', 'noopener,noreferrer')}
+              className="w-full rounded-lg border border-emerald-300 bg-emerald-100 px-3 py-2 text-left text-sm font-medium text-emerald-800 transition hover:bg-emerald-200"
+            >
+              Ver documentacion detallada TaskPulse
+            </button>
           </div>
 
-          <p className="mt-3 break-all text-xs text-slate-400">Base API: {TASKPULSE_API_BASE}</p>
+          <p className="mt-3 break-all text-xs text-slate-500">Base API: {TASKPULSE_API_BASE}</p>
+          <p className="mt-1 break-all text-xs text-slate-500">Documentacion: {TASKPULSE_DOCS_URL}</p>
         </div>
       </div>
 
       {apiResult ? (
-        <div className="rounded-lg border border-slate-700/70 bg-slate-900/75 p-4">
-          <p className="m-0 text-xs uppercase tracking-[0.14em] text-cyan-300">Respuesta endpoint</p>
-          <p className="mt-2 text-sm text-slate-300">
+        <div className="rounded-lg border border-slate-200 bg-slate-50 p-4">
+          <p className="m-0 text-xs uppercase tracking-[0.14em] text-sky-600">Respuesta endpoint</p>
+          <p className="mt-2 text-sm text-slate-700">
             Status:{' '}
-            <strong className={apiResult.ok ? 'text-emerald-300' : 'text-rose-300'}>
+            <strong className={apiResult.ok ? 'text-emerald-700' : 'text-rose-700'}>
               {apiResult.status ?? 'sin codigo'}
             </strong>
           </p>
-          <pre className="mt-2 max-h-60 overflow-auto rounded-md border border-slate-700/70 bg-slate-950/80 p-3 text-xs text-slate-200">
+          <pre className="mt-2 max-h-60 overflow-auto rounded-md border border-slate-200 bg-white p-3 text-xs text-slate-700">
             {typeof apiResult.body === 'string'
               ? apiResult.body
               : JSON.stringify(apiResult.body, null, 2)}
           </pre>
         </div>
       ) : null}
+    </article>
+  )
+}
+
+function ChronoStreamDetail({ project }) {
+  const wasmApiRef = useRef(null)
+  const [wasmState, setWasmState] = useState('loading')
+  const [wasmMessage, setWasmMessage] = useState('Inicializando motor WebAssembly...')
+
+  const [encryptInput, setEncryptInput] = useState(
+    'Payload sensible del reclutador: token_temporal=abc123; scope=frontend-demo'
+  )
+  const [encryptKey, setEncryptKey] = useState('clave-demo-chronostream-2026')
+  const [encryptedOutput, setEncryptedOutput] = useState('')
+
+  const [hashInput, setHashInput] = useState(
+    'Bloque de datos para firma SHA-256\n'.repeat(2000)
+  )
+  const [hashOutput, setHashOutput] = useState('')
+  const [hashTimeMs, setHashTimeMs] = useState(null)
+
+  useEffect(() => {
+    let cancelled = false
+
+    const initWasm = async () => {
+      try {
+        const wasmModule = await import('../../chronostream-wasm/pkg/chronostream_wasm.js')
+        await wasmModule.default()
+
+        if (cancelled) {
+          return
+        }
+
+        wasmApiRef.current = {
+          encrypt_data: wasmModule.encrypt_data,
+          generate_hash: wasmModule.generate_hash
+        }
+
+        setWasmState('ready')
+        setWasmMessage('Motor ChronoStream cargado en CPU local (WebAssembly).')
+      } catch (error) {
+        if (cancelled) {
+          return
+        }
+
+        setWasmState('error')
+        setWasmMessage(
+          error instanceof Error
+            ? `No se pudo cargar el .wasm: ${error.message}`
+            : 'No se pudo cargar el motor wasm.'
+        )
+      }
+    }
+
+    initWasm()
+
+    return () => {
+      cancelled = true
+    }
+  }, [])
+
+  const runEncrypt = () => {
+    if (!wasmApiRef.current) {
+      setEncryptedOutput('Motor wasm no disponible.')
+      return
+    }
+
+    try {
+      const result = wasmApiRef.current.encrypt_data(encryptInput, encryptKey)
+      setEncryptedOutput(result)
+    } catch (error) {
+      setEncryptedOutput(error instanceof Error ? error.message : 'Error al cifrar.')
+    }
+  }
+
+  const runHash = () => {
+    if (!wasmApiRef.current) {
+      setHashOutput('Motor wasm no disponible.')
+      setHashTimeMs(null)
+      return
+    }
+
+    try {
+      const start = performance.now()
+      const result = wasmApiRef.current.generate_hash(hashInput)
+      const end = performance.now()
+
+      setHashOutput(result)
+      setHashTimeMs(Number((end - start).toFixed(3)))
+    } catch (error) {
+      setHashOutput(error instanceof Error ? error.message : 'Error al generar hash.')
+      setHashTimeMs(null)
+    }
+  }
+
+  const statusTone =
+    wasmState === 'ready'
+      ? 'border-emerald-300 bg-emerald-50 text-emerald-700'
+      : wasmState === 'error'
+        ? 'border-rose-300 bg-rose-50 text-rose-700'
+        : 'border-amber-300 bg-amber-50 text-amber-700'
+
+  return (
+    <article className="space-y-4 rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
+      <h4 className="m-0 text-lg font-semibold text-slate-900">Demo In-Browser ChronoStream (WASM)</h4>
+      <p className="m-0 text-sm leading-relaxed text-slate-600">{project.summary}</p>
+
+      <div className={`rounded-lg border px-3 py-2 text-sm ${statusTone}`}>{wasmMessage}</div>
+
+      <div className="grid gap-4 lg:grid-cols-2">
+        <section className="space-y-2 rounded-lg border border-slate-200 bg-slate-50 p-4">
+          <p className="m-0 text-xs uppercase tracking-[0.14em] text-sky-600">Cifrado simetrico</p>
+
+          <label className="space-y-1">
+            <span className="text-xs text-slate-600">Payload</span>
+            <textarea
+              value={encryptInput}
+              onChange={(event) => setEncryptInput(event.target.value)}
+              rows={5}
+              className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-xs text-slate-800 outline-none transition focus:border-sky-400"
+            />
+          </label>
+
+          <label className="space-y-1">
+            <span className="text-xs text-slate-600">Clave</span>
+            <input
+              type="text"
+              value={encryptKey}
+              onChange={(event) => setEncryptKey(event.target.value)}
+              className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-xs text-slate-800 outline-none transition focus:border-sky-400"
+            />
+          </label>
+
+          <button
+            type="button"
+            onClick={runEncrypt}
+            disabled={wasmState !== 'ready'}
+            className="rounded-lg border border-sky-300 bg-sky-100 px-3 py-2 text-sm font-medium text-sky-800 transition hover:bg-sky-200 disabled:cursor-not-allowed disabled:opacity-60"
+          >
+            Ejecutar encrypt_data
+          </button>
+
+          <pre className="max-h-48 overflow-auto rounded-md border border-slate-200 bg-white p-3 text-xs text-slate-700">
+            {encryptedOutput || 'Sin salida todavia.'}
+          </pre>
+        </section>
+
+        <section className="space-y-2 rounded-lg border border-slate-200 bg-slate-50 p-4">
+          <p className="m-0 text-xs uppercase tracking-[0.14em] text-sky-600">Firma SHA-256 masiva</p>
+
+          <label className="space-y-1">
+            <span className="text-xs text-slate-600">Texto de entrada (masivo)</span>
+            <textarea
+              value={hashInput}
+              onChange={(event) => setHashInput(event.target.value)}
+              rows={5}
+              className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-xs text-slate-800 outline-none transition focus:border-sky-400"
+            />
+          </label>
+
+          <button
+            type="button"
+            onClick={runHash}
+            disabled={wasmState !== 'ready'}
+            className="rounded-lg border border-emerald-300 bg-emerald-100 px-3 py-2 text-sm font-medium text-emerald-800 transition hover:bg-emerald-200 disabled:cursor-not-allowed disabled:opacity-60"
+          >
+            Ejecutar generate_hash
+          </button>
+
+          <p className="m-0 text-xs text-slate-500">
+            Tiempo de calculo: {hashTimeMs !== null ? `${hashTimeMs} ms` : 'sin medicion'}
+          </p>
+
+          <pre className="max-h-48 overflow-auto rounded-md border border-slate-200 bg-white p-3 text-xs text-slate-700">
+            {hashOutput || 'Sin salida todavia.'}
+          </pre>
+        </section>
+      </div>
     </article>
   )
 }
@@ -275,10 +465,10 @@ function ProjectsExplorer() {
 
   return (
     <section className="space-y-5" aria-label="Explorador de proyectos">
-      <div className="rounded-xl border border-slate-700/50 bg-slate-950/45 p-4 sm:p-5">
+      <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm sm:p-5">
         <div className="grid gap-3 lg:grid-cols-[1.4fr_1fr] lg:items-end">
           <label className="space-y-2">
-            <span className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-300">
+            <span className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-600">
               Buscar proyecto
             </span>
             <input
@@ -286,11 +476,11 @@ function ProjectsExplorer() {
               value={searchQuery}
               onChange={(event) => setSearchQuery(event.target.value)}
               placeholder="Ej: wasm, docker, java, realtime..."
-              className="w-full rounded-lg border border-slate-700/70 bg-slate-900/80 px-3 py-2 text-sm text-slate-100 outline-none transition focus:border-cyan-300"
+              className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-800 outline-none transition focus:border-sky-400"
             />
           </label>
 
-          <p className="m-0 text-sm text-slate-400">
+          <p className="m-0 text-sm text-slate-500">
             {filteredProjects.length} proyecto(s) encontrado(s)
           </p>
         </div>
@@ -305,8 +495,8 @@ function ProjectsExplorer() {
                 onClick={() => setActiveCategory(category)}
                 className={`rounded-full border px-3 py-1 text-xs font-semibold transition ${
                   isActive
-                    ? 'border-cyan-300/80 bg-cyan-400/15 text-cyan-100'
-                    : 'border-slate-700/70 text-slate-300 hover:border-slate-500/80'
+                    ? 'border-sky-300 bg-sky-100 text-sky-800'
+                    : 'border-slate-300 text-slate-600 hover:border-slate-400'
                 }`}
               >
                 {category}
@@ -317,17 +507,17 @@ function ProjectsExplorer() {
       </div>
 
       {selectedProject ? (
-        <article className="space-y-4 rounded-xl border border-cyan-400/35 bg-slate-950/40 p-4 sm:p-5">
+        <article className="space-y-4 rounded-xl border border-slate-200 bg-white p-4 shadow-sm sm:p-5">
           <div className="flex flex-wrap items-start justify-between gap-3">
             <div>
-              <p className="m-0 text-xs uppercase tracking-[0.14em] text-cyan-300">Detalle del proyecto</p>
-              <h3 className="m-0 mt-1 text-2xl font-semibold text-slate-100">{selectedProject.title}</h3>
-              <p className="m-0 mt-1 text-sm text-slate-300">{selectedProject.subtitle}</p>
+              <p className="m-0 text-xs uppercase tracking-[0.14em] text-sky-600">Detalle del proyecto</p>
+              <h3 className="m-0 mt-1 text-2xl font-semibold text-slate-900">{selectedProject.title}</h3>
+              <p className="m-0 mt-1 text-sm text-slate-600">{selectedProject.subtitle}</p>
             </div>
             <button
               type="button"
               onClick={() => setSelectedProjectId(null)}
-              className="rounded-lg border border-slate-600/80 px-3 py-2 text-sm text-slate-100 transition hover:border-cyan-300"
+              className="rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-700 transition hover:border-sky-400"
             >
               Volver al catalogo
             </button>
@@ -335,6 +525,8 @@ function ProjectsExplorer() {
 
           {selectedProject.id === 'retroforge' ? (
             <RetroForgeShowcase />
+          ) : selectedProject.id === 'chronostream' ? (
+            <WasmCryptor />
           ) : selectedProject.id === 'taskpulse' ? (
             <TaskPulseDetail project={selectedProject} />
           ) : (
@@ -349,18 +541,18 @@ function ProjectsExplorer() {
             key={project.id}
             type="button"
             onClick={() => setSelectedProjectId(project.id)}
-            className="group rounded-2xl border border-slate-700/60 bg-slate-900/75 p-4 text-left transition duration-200 hover:-translate-y-1 hover:border-cyan-300/45 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-300"
+            className="group rounded-2xl border border-slate-200 bg-white p-4 text-left shadow-sm transition duration-200 hover:-translate-y-1 hover:border-sky-300 hover:shadow-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-400"
           >
-            <p className="m-0 text-xs uppercase tracking-[0.14em] text-cyan-300">{project.id}</p>
-            <h3 className="m-0 mt-2 text-lg font-semibold text-slate-100">{project.title}</h3>
-            <p className="m-0 mt-1 text-sm text-slate-300">{project.subtitle}</p>
-            <p className="m-0 mt-3 text-sm leading-relaxed text-slate-400">{project.summary}</p>
+            <p className="m-0 text-xs uppercase tracking-[0.14em] text-sky-600">{project.id}</p>
+            <h3 className="m-0 mt-2 text-lg font-semibold text-slate-900">{project.title}</h3>
+            <p className="m-0 mt-1 text-sm text-slate-600">{project.subtitle}</p>
+            <p className="m-0 mt-3 text-sm leading-relaxed text-slate-500">{project.summary}</p>
 
             <div className="mt-4 flex flex-wrap gap-2">
               {project.categories.map((category) => (
                 <span
                   key={`${project.id}-${category}`}
-                  className="rounded-full border border-slate-600/70 px-2 py-1 text-[11px] text-slate-300"
+                  className="rounded-full border border-slate-300 bg-slate-50 px-2 py-1 text-[11px] text-slate-700"
                 >
                   {category}
                 </span>
@@ -371,7 +563,7 @@ function ProjectsExplorer() {
       </div>
 
       {filteredProjects.length === 0 ? (
-        <div className="rounded-xl border border-amber-400/35 bg-amber-300/10 p-4 text-sm text-amber-100">
+        <div className="rounded-xl border border-amber-300 bg-amber-50 p-4 text-sm text-amber-800">
           No hay proyectos con ese filtro. Prueba otra categoria o termino de busqueda.
         </div>
       ) : null}

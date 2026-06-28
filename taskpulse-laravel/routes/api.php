@@ -6,6 +6,8 @@ use App\Http\Controllers\Api\SprintMetricsController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->group(function (): void {
-    Route::post('/sprints/{sprint}/metrics/recalculate', [SprintMetricsController::class, 'queueRecalculation']);
-    Route::get('/sprints/{sprint}/metrics/latest', [SprintMetricsController::class, 'latest']);
+    Route::post('/sprints/{sprintId}/metrics/recalculate', [SprintMetricsController::class, 'queueRecalculation'])
+        ->whereNumber('sprintId');
+    Route::get('/sprints/{sprintId}/metrics/latest', [SprintMetricsController::class, 'latest'])
+        ->whereNumber('sprintId');
 });

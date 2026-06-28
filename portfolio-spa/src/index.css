@@ -1,8 +1,9 @@
 @import 'tailwindcss';
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap');
 
 :root {
-  --portfolio-bg: #0b0f19;
-  --portfolio-text: #e2e8f0;
+  --portfolio-bg: #f8fafc;
+  --portfolio-text: #0f172a;
 }
 
 * {
@@ -17,11 +18,12 @@ body,
 }
 
 body {
-  background: radial-gradient(circle at 10% 10%, #111a2f 0%, var(--portfolio-bg) 45%),
-    radial-gradient(circle at 95% 95%, #0f192a 0%, transparent 35%),
+  background:
+    radial-gradient(1200px 500px at 100% -10%, rgba(14, 165, 233, 0.08), transparent 60%),
+    radial-gradient(1000px 420px at 0% 100%, rgba(56, 189, 248, 0.06), transparent 55%),
     var(--portfolio-bg);
   color: var(--portfolio-text);
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Plus Jakarta Sans', 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

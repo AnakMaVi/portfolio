@@ -1,8 +1,10 @@
 import { useEffect, useRef, useState } from 'react'
+import { hasSupabaseConfig, supabase } from '../lib/supabaseClient'
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i
 const FORMSPREE_ENDPOINT =
   (import.meta.env.VITE_FORMSPREE_ENDPOINT || 'https://formspree.io/f/xnjkplvn').trim()
+const SUPABASE_TABLE = (import.meta.env.VITE_SUPABASE_CONTACTS_TABLE || 'contact_messages').trim()
 const DESTINATION_EMAIL = 'anakmartelviera@gmail.com'
 
 const INITIAL_FORM = {
@@ -86,6 +88,15 @@ function hasErrors(errors) {
   return Object.values(errors).some((error) => error.length > 0)
 }
 
+function getTrimmedPayload(formData) {
+  return {
+    nombre: formData.nombre.trim(),
+    email: formData.email.trim(),
+    asunto: formData.asunto.trim(),
+    mensaje: formData.mensaje.trim()
+  }
+}
+
 function ContactSection() {
   const [formData, setFormData] = useState(INITIAL_FORM)
   const [errors, setErrors] = useState(validateForm(INITIAL_FORM))
@@ -130,6 +141,8 @@ function ContactSection() {
       throw new Error('Falta la variable VITE_FORMSPREE_ENDPOINT.')
     }
 
+    const payload = getTrimmedPayload(formData)
+
     requestControllerRef.current = new AbortController()
 
     const response = await fetch(FORMSPREE_ENDPOINT, {
@@ -140,20 +153,37 @@ function ContactSection() {
       },
       signal: requestControllerRef.current.signal,
       body: JSON.stringify({
-        nombre: formData.nombre.trim(),
-        email: formData.email.trim(),
-        asunto: formData.asunto.trim(),
-        mensaje: formData.mensaje.trim(),
-        _subject: `[Portfolio] ${formData.asunto.trim()}`,
-        _replyto: formData.email.trim(),
+        ...payload,
+        _subject: `[Portfolio] ${payload.asunto}`,
+        _replyto: payload.email,
         destino: DESTINATION_EMAIL
       })
     })
 
-    const payload = await response.json().catch(() => null)
+    const responseBody = await response.json().catch(() => null)
 
-    if (!response.ok || payload?.errors?.length) {
+    if (!response.ok || responseBody?.errors?.length) {
       throw new Error('El servicio de correo devolvio un error.')
+    }
+  }
+
+  const sendWithSupabase = async () => {
+    if (!hasSupabaseConfig || !supabase) {
+      throw new Error('Falta configurar VITE_SUPABASE_URL y VITE_SUPABASE_ANON_KEY.')
+    }
+
+    const payload = getTrimmedPayload(formData)
+
+    const { error } = await supabase.from(SUPABASE_TABLE).insert([
+      {
+        ...payload,
+        destino_email: DESTINATION_EMAIL,
+        source: 'portfolio-web'
+      }
+    ])
+
+    if (error) {
+      throw new Error(error.message)
     }
   }
 
@@ -180,9 +210,15 @@ function ContactSection() {
     setFeedbackMessage('')
 
     try {
-      await sendWithFormspree()
+      if (hasSupabaseConfig) {
+        await sendWithSupabase()
+        setFeedbackMessage('Mensaje guardado en la base de datos correctamente.')
+      } else {
+        await sendWithFormspree()
+        setFeedbackMessage('El correo se ha enviado correctamente.')
+      }
+
       setStatus('success')
-      setFeedbackMessage('El correo se ha enviado correctamente.')
       setFormData(INITIAL_FORM)
       setErrors(validateForm(INITIAL_FORM))
       setTouched(INITIAL_TOUCHED)
@@ -190,9 +226,11 @@ function ContactSection() {
     } catch {
       setStatus('error')
       setFeedbackMessage(
-        FORMSPREE_ENDPOINT
-          ? 'Error: no se pudo enviar el correo. Intenta de nuevo en unos segundos.'
-          : 'Error de configuracion: define VITE_FORMSPREE_ENDPOINT para habilitar el envio real.'
+        hasSupabaseConfig
+          ? 'Error: no se pudo guardar el mensaje en Supabase. Revisa tabla, politicas y variables.'
+          : FORMSPREE_ENDPOINT
+            ? 'Error: no se pudo enviar el correo. Intenta de nuevo en unos segundos.'
+            : 'Error de configuracion: define VITE_SUPABASE_URL y VITE_SUPABASE_ANON_KEY o VITE_FORMSPREE_ENDPOINT.'
       )
     } finally {
       requestControllerRef.current = null

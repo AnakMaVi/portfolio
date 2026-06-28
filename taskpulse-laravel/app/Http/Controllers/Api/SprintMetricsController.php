@@ -10,8 +10,17 @@ use Illuminate\Http\JsonResponse;
 
 class SprintMetricsController extends Controller
 {
-    public function queueRecalculation(Sprint $sprint): JsonResponse
+    public function queueRecalculation(int $sprintId): JsonResponse
     {
+        $sprint = Sprint::query()->find($sprintId);
+
+        if ($sprint === null) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Sprint no encontrado.',
+            ], 404);
+        }
+
         $traceId = sprintf('api-%s-%d', now()->format('YmdHis'), $sprint->id);
         CalculateSprintMetrics::dispatch($sprint->id, $traceId);
 
@@ -23,8 +32,17 @@ class SprintMetricsController extends Controller
         ], 202);
     }
 
-    public function latest(Sprint $sprint): JsonResponse
+    public function latest(int $sprintId): JsonResponse
     {
+        $sprint = Sprint::query()->find($sprintId);
+
+        if ($sprint === null) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Sprint no encontrado.',
+            ], 404);
+        }
+
         $latest = SprintMetricLog::query()
             ->where('sprint_id', $sprint->id)
             ->latest('generated_at')

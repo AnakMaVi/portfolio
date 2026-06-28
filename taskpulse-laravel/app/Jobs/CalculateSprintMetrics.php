@@ -26,10 +26,6 @@ class CalculateSprintMetrics implements ShouldQueue
     use Queueable;
     use SerializesModels;
 
-    public string $connection = 'redis';
-
-    public string $queue = 'metrics';
-
     public int $tries = 5;
 
     public int $maxExceptions = 3;
@@ -47,6 +43,8 @@ class CalculateSprintMetrics implements ShouldQueue
         public readonly int $sprintId,
         public readonly ?string $traceId = null
     ) {
+        $this->onConnection((string) config('queue.default', 'sync'));
+        $this->onQueue('metrics');
     }
 
     /**
@@ -142,7 +140,7 @@ class CalculateSprintMetrics implements ShouldQueue
 
             $enteredAt = CarbonImmutable::parse($transition->entered_at);
             $leftAt = CarbonImmutable::parse($transition->left_at);
-            $durationInSeconds = max(0, $leftAt->diffInSeconds($enteredAt));
+            $durationInSeconds = max(0, $enteredAt->diffInSeconds($leftAt));
 
             if (!array_key_exists($transition->stage_key, $metrics)) {
                 $metrics[$transition->stage_key] = [
