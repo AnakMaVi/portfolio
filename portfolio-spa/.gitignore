@@ -12,6 +12,9 @@ dist
 dist-ssr
 *.local
 
+# wasm-pack output
+chronostream-wasm/pkg
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
