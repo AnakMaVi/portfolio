@@ -3,24 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
     <title>TaskPulse | Documentacion Tecnica</title>
     <style>
         :root {
-            color-scheme: dark;
-            --bg: #081224;
-            --panel: #12223a;
-            --line: #2b4467;
-            --ink: #e4eefb;
-            --muted: #99afca;
-            --accent: #5bd9ff;
+            color-scheme: light;
+            --bg: #f8fafc;
+            --panel: #ffffff;
+            --line: #cbd5e1;
+            --ink: #0f172a;
+            --muted: #475569;
+            --accent: #0369a1;
         }
 
         * { box-sizing: border-box; }
 
         body {
             margin: 0;
-            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-            background: radial-gradient(1200px 500px at right top, rgba(91, 217, 255, 0.14), transparent 62%), var(--bg);
+            font-family: "Plus Jakarta Sans", "Inter", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            background:
+                radial-gradient(1200px 500px at right top, rgba(14, 165, 233, 0.1), transparent 62%),
+                radial-gradient(900px 420px at left bottom, rgba(99, 102, 241, 0.08), transparent 58%),
+                var(--bg);
             color: var(--ink);
             min-height: 100vh;
         }
@@ -33,9 +39,10 @@
 
         .hero, .card {
             border: 1px solid var(--line);
-            background: linear-gradient(180deg, rgba(18, 34, 58, 0.95), rgba(13, 24, 43, 0.95));
+            background: var(--panel);
             border-radius: 14px;
             padding: 16px;
+            box-shadow: 0 1px 2px rgba(15, 23, 42, 0.06);
         }
 
         h1, h2, h3 {
@@ -44,7 +51,7 @@
 
         h1 { font-size: clamp(1.5rem, 3vw, 2.1rem); }
         h2 { font-size: 1.1rem; }
-        h3 { font-size: 0.95rem; color: #d2e6ff; }
+        h3 { font-size: 0.95rem; color: #1e293b; }
 
         p, li { color: var(--muted); line-height: 1.6; }
 
@@ -63,11 +70,12 @@
         }
 
         .chip {
-            border: 1px solid rgba(91, 217, 255, 0.4);
+            border: 1px solid #bae6fd;
+            background: #f0f9ff;
             border-radius: 999px;
             padding: 4px 9px;
             font-size: 0.78rem;
-            color: #d3f5ff;
+            color: #075985;
         }
 
         .section {
@@ -84,9 +92,9 @@
             border: 1px solid var(--line);
             border-radius: 10px;
             padding: 10px;
-            background: #081326;
+            background: #f8fafc;
             overflow: auto;
-            color: #d2ecff;
+            color: #1e293b;
             font-size: 0.82rem;
             line-height: 1.45;
         }
@@ -106,7 +114,7 @@
             border: 1px solid var(--line);
             border-radius: 8px;
             padding: 7px 9px;
-            background: rgba(14, 26, 46, 0.75);
+            background: #f8fafc;
         }
 
         @media (max-width: 860px) {

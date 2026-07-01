@@ -3,21 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
     <title>TaskPulse | Dashboard Operativa</title>
     <style>
         :root {
-            color-scheme: dark;
-            --bg: #06101f;
-            --bg-2: #0d1b2f;
-            --panel: #12233c;
-            --panel-2: #172d4d;
-            --ink: #e2edf9;
-            --muted: #9db2cb;
-            --accent: #33d6ff;
-            --accent-2: #6ce8c7;
+            color-scheme: light;
+            --bg: #f8fafc;
+            --bg-2: #eef2ff;
+            --panel: #ffffff;
+            --panel-2: #f8fafc;
+            --ink: #0f172a;
+            --muted: #475569;
+            --accent: #0ea5e9;
+            --accent-2: #10b981;
             --warn: #f8c35c;
             --danger: #ff8a8a;
-            --line: #2b4367;
+            --line: #cbd5e1;
         }
 
         * { box-sizing: border-box; }
@@ -26,11 +29,11 @@
             margin: 0;
             min-height: 100vh;
             background:
-                radial-gradient(1000px 400px at 90% -5%, rgba(62, 197, 255, 0.2), transparent 65%),
-                radial-gradient(900px 500px at -10% 110%, rgba(108, 232, 199, 0.2), transparent 60%),
-                linear-gradient(180deg, var(--bg), #040b16 65%);
+                radial-gradient(1000px 400px at 90% -5%, rgba(62, 197, 255, 0.14), transparent 65%),
+                radial-gradient(900px 500px at -10% 110%, rgba(108, 232, 199, 0.12), transparent 60%),
+                linear-gradient(180deg, var(--bg), #edf2ff 65%);
             color: var(--ink);
-            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            font-family: "Plus Jakarta Sans", "Inter", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
         }
 
         .wrap {
@@ -41,12 +44,12 @@
 
         .hero {
             border: 1px solid var(--line);
-            background: linear-gradient(160deg, rgba(18, 35, 60, 0.95), rgba(13, 27, 47, 0.95));
+            background: linear-gradient(160deg, rgba(255, 255, 255, 0.96), rgba(248, 250, 252, 0.96));
             border-radius: 18px;
             padding: 18px;
             display: grid;
             gap: 12px;
-            box-shadow: 0 24px 52px rgba(0, 0, 0, 0.35);
+            box-shadow: 0 14px 32px rgba(15, 23, 42, 0.08);
         }
 
         .hero h1 {
@@ -68,10 +71,10 @@
         }
 
         .btn {
-            border: 1px solid #2f5d8e;
+            border: 1px solid #7dd3fc;
             border-radius: 10px;
-            background: rgba(51, 214, 255, 0.14);
-            color: #d9f7ff;
+            background: #f0f9ff;
+            color: #075985;
             padding: 8px 12px;
             font-weight: 700;
             letter-spacing: 0.02em;
@@ -79,7 +82,7 @@
             font-size: 0.86rem;
         }
 
-        .btn:hover { background: rgba(51, 214, 255, 0.24); }
+        .btn:hover { background: #e0f2fe; }
 
         .cards {
             margin-top: 14px;
@@ -124,7 +127,7 @@
 
         .panel {
             border: 1px solid var(--line);
-            background: rgba(13, 27, 47, 0.85);
+            background: rgba(255, 255, 255, 0.92);
             border-radius: 14px;
             padding: 12px;
         }
@@ -140,8 +143,8 @@
 
         .chart {
             margin-top: 10px;
-            border: 1px solid rgba(43, 67, 103, 0.7);
-            background: rgba(7, 18, 34, 0.7);
+            border: 1px solid rgba(148, 163, 184, 0.6);
+            background: rgba(248, 250, 252, 0.9);
             border-radius: 10px;
             padding: 8px;
         }
@@ -162,14 +165,14 @@
         }
 
         th, td {
-            border-bottom: 1px solid rgba(43, 67, 103, 0.8);
+            border-bottom: 1px solid rgba(203, 213, 225, 0.9);
             padding: 9px 8px;
             text-align: left;
             white-space: nowrap;
         }
 
         th {
-            color: #cce7ff;
+            color: #334155;
             font-size: 0.76rem;
             text-transform: uppercase;
             letter-spacing: 0.08em;
@@ -196,10 +199,10 @@
         }
 
         .metric {
-            border: 1px solid rgba(43, 67, 103, 0.8);
+            border: 1px solid rgba(203, 213, 225, 0.9);
             border-radius: 10px;
             padding: 9px;
-            background: rgba(14, 29, 50, 0.75);
+            background: rgba(248, 250, 252, 0.95);
         }
 
         .metric .n {
@@ -210,7 +213,7 @@
 
         .quick {
             margin-top: 12px;
-            border-top: 1px dashed rgba(157, 178, 203, 0.35);
+            border-top: 1px dashed rgba(148, 163, 184, 0.45);
             padding-top: 12px;
         }
 
@@ -225,23 +228,23 @@
             width: 130px;
             border: 1px solid var(--line);
             border-radius: 9px;
-            background: #0a1630;
+            background: #ffffff;
             color: var(--ink);
             padding: 8px 9px;
         }
 
         .quick button {
-            border: 1px solid #2e648f;
+            border: 1px solid #7dd3fc;
             border-radius: 9px;
-            background: rgba(51, 214, 255, 0.15);
-            color: #dcf8ff;
+            background: #f0f9ff;
+            color: #075985;
             padding: 8px 10px;
             font-weight: 700;
             cursor: pointer;
         }
 
         .quick button:hover {
-            background: rgba(51, 214, 255, 0.24);
+            background: #e0f2fe;
         }
 
         pre {
@@ -250,19 +253,19 @@
             overflow: auto;
             border: 1px solid var(--line);
             border-radius: 10px;
-            background: #050e1f;
+            background: #ffffff;
             padding: 10px;
             font-size: 0.8rem;
-            color: #c4e6ff;
+            color: #1e293b;
             line-height: 1.45;
         }
 
         .latest-visual {
             margin-top: 10px;
-            border: 1px solid rgba(43, 67, 103, 0.8);
+            border: 1px solid rgba(148, 163, 184, 0.7);
             border-radius: 10px;
             padding: 10px;
-            background: rgba(10, 22, 45, 0.7);
+            background: rgba(248, 250, 252, 0.95);
         }
 
         .latest-grid {
@@ -272,10 +275,10 @@
         }
 
         .latest-card {
-            border: 1px solid rgba(43, 67, 103, 0.9);
+            border: 1px solid rgba(203, 213, 225, 0.95);
             border-radius: 9px;
             padding: 8px;
-            background: rgba(9, 18, 36, 0.8);
+            background: rgba(255, 255, 255, 0.95);
         }
 
         .latest-card .n {
@@ -286,9 +289,9 @@
 
         .latest-chart {
             margin-top: 8px;
-            border: 1px solid rgba(43, 67, 103, 0.8);
+            border: 1px solid rgba(203, 213, 225, 0.9);
             border-radius: 9px;
-            background: rgba(6, 14, 28, 0.85);
+            background: rgba(255, 255, 255, 0.95);
             padding: 8px;
         }
 
@@ -487,7 +490,7 @@
     const defaultSprintId = Number(@json($resolvedSprintId));
 
     function colorByIndex(index) {
-        const palette = ['#37d7ff', '#6ce8c7', '#ffd27f', '#b4a6ff', '#ff9ba2', '#8dd3ff'];
+        const palette = ['#0ea5e9', '#10b981', '#f59e0b', '#6366f1', '#f43f5e', '#14b8a6'];
         return palette[index % palette.length];
     }
 
@@ -526,13 +529,13 @@
             const color = colorByIndex(index);
 
             bars += `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="6" fill="${color}" fill-opacity="0.78"></rect>`;
-            values += `<text x="${x + w / 2}" y="${y - 6}" text-anchor="middle" font-size="11" fill="#d7ecff">${raw}${suffix}</text>`;
-            labels += `<text x="${x + w / 2}" y="${height - 20}" text-anchor="middle" font-size="11" fill="#9db2cb">${String(row[labelKey]).slice(0, 12)}</text>`;
+            values += `<text x="${x + w / 2}" y="${y - 6}" text-anchor="middle" font-size="11" fill="#1e293b">${raw}${suffix}</text>`;
+            labels += `<text x="${x + w / 2}" y="${height - 20}" text-anchor="middle" font-size="11" fill="#64748b">${String(row[labelKey]).slice(0, 12)}</text>`;
         });
 
         container.innerHTML = `
             <svg viewBox="0 0 ${width} ${height}" role="img" aria-label="Grafica ${containerId}">
-                <line x1="${padL}" y1="${padT + usableH}" x2="${width - padR}" y2="${padT + usableH}" stroke="#2e4d77" stroke-width="1" />
+                <line x1="${padL}" y1="${padT + usableH}" x2="${width - padR}" y2="${padT + usableH}" stroke="#94a3b8" stroke-width="1" />
                 ${bars}
                 ${values}
                 ${labels}
@@ -572,14 +575,14 @@
             const y = padT + usableH - (raw / maxValue) * usableH;
 
             path += `${index === 0 ? 'M' : 'L'} ${x} ${y} `;
-            points += `<circle cx="${x}" cy="${y}" r="3.5" fill="#6ce8c7"></circle>`;
-            labels += `<text x="${x}" y="${height - 18}" text-anchor="middle" font-size="10" fill="#9db2cb">${String(row[labelKey]).slice(5)}</text>`;
+            points += `<circle cx="${x}" cy="${y}" r="3.5" fill="#10b981"></circle>`;
+            labels += `<text x="${x}" y="${height - 18}" text-anchor="middle" font-size="10" fill="#64748b">${String(row[labelKey]).slice(5)}</text>`;
         });
 
         container.innerHTML = `
             <svg viewBox="0 0 ${width} ${height}" role="img" aria-label="Grafica ${containerId}">
-                <line x1="${padL}" y1="${padT + usableH}" x2="${width - padR}" y2="${padT + usableH}" stroke="#2e4d77" stroke-width="1" />
-                <path d="${path}" fill="none" stroke="#37d7ff" stroke-width="2.5"></path>
+                <line x1="${padL}" y1="${padT + usableH}" x2="${width - padR}" y2="${padT + usableH}" stroke="#94a3b8" stroke-width="1" />
+                <path d="${path}" fill="none" stroke="#0ea5e9" stroke-width="2.5"></path>
                 ${points}
                 ${labels}
             </svg>
@@ -657,13 +660,13 @@
             const color = colorByIndex(index);
 
             bars += `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="6" fill="${color}" fill-opacity="0.78"></rect>`;
-            values += `<text x="${x + w / 2}" y="${y - 5}" text-anchor="middle" font-size="10" fill="#d7ecff">${row.averageHours.toFixed(2)}h</text>`;
-            labels += `<text x="${x + w / 2}" y="${height - 18}" text-anchor="middle" font-size="10" fill="#9db2cb">${row.stage.slice(0, 12)}</text>`;
+            values += `<text x="${x + w / 2}" y="${y - 5}" text-anchor="middle" font-size="10" fill="#1e293b">${row.averageHours.toFixed(2)}h</text>`;
+            labels += `<text x="${x + w / 2}" y="${height - 18}" text-anchor="middle" font-size="10" fill="#64748b">${row.stage.slice(0, 12)}</text>`;
         });
 
         latestStageChart.innerHTML = `
             <svg viewBox="0 0 ${width} ${height}" role="img" aria-label="Duracion media por etapa">
-                <line x1="${padL}" y1="${padT + usableH}" x2="${width - padR}" y2="${padT + usableH}" stroke="#2e4d77" stroke-width="1" />
+                <line x1="${padL}" y1="${padT + usableH}" x2="${width - padR}" y2="${padT + usableH}" stroke="#94a3b8" stroke-width="1" />
                 ${bars}
                 ${values}
                 ${labels}
