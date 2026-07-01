@@ -5,7 +5,7 @@ services:
     rootDir: taskpulse-laravel
     dockerfilePath: ./Dockerfile
     dockerContext: ./
-    dockerCommand: sh -c "php artisan key:generate --force && php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=8000"
+    dockerCommand: ./entrypoint-web.sh
     plan: starter
     envVars:
       - key: APP_ENV
@@ -58,7 +58,7 @@ services:
     dockerfilePath: ./Dockerfile
     dockerContext: ./
     plan: starter
-    dockerCommand: sh -c "php artisan key:generate --force && php artisan horizon"
+    dockerCommand: ./entrypoint-worker.sh
     envVars:
       - key: APP_ENV
         value: production

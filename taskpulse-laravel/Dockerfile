@@ -18,6 +18,8 @@ RUN composer install --no-interaction --prefer-dist --no-dev --no-scripts --igno
 
 COPY . .
 
+RUN chmod +x /var/www/html/entrypoint-web.sh /var/www/html/entrypoint-worker.sh
+
 RUN composer dump-autoload --optimize --no-dev \
     && php artisan package:discover --ansi
 
