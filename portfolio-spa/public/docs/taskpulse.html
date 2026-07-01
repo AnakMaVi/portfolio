@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TaskPulse Docs | Portfolio</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --bg: #f8fafc;
+        --card: #ffffff;
+        --line: #dbe4f0;
+        --text: #0f172a;
+        --muted: #475569;
+        --accent: #0ea5e9;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: radial-gradient(circle at 20% 0%, #e0f2fe 0%, var(--bg) 40%);
+        color: var(--text);
+      }
+
+      .wrap {
+        max-width: 920px;
+        margin: 0 auto;
+        padding: 32px 20px 48px;
+      }
+
+      .card {
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        padding: 22px;
+        box-shadow: 0 10px 24px rgba(15, 23, 42, 0.06);
+      }
+
+      h1 {
+        margin: 0;
+        font-size: clamp(1.7rem, 3vw, 2.2rem);
+        line-height: 1.2;
+      }
+
+      p {
+        color: var(--muted);
+        line-height: 1.6;
+      }
+
+      .links {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 12px;
+        margin-top: 18px;
+      }
+
+      a {
+        display: inline-block;
+        border: 1px solid #bae6fd;
+        background: #f0f9ff;
+        color: #0c4a6e;
+        text-decoration: none;
+        padding: 12px 14px;
+        border-radius: 10px;
+        font-weight: 600;
+      }
+
+      a:hover {
+        background: #e0f2fe;
+      }
+
+      code {
+        display: inline-block;
+        margin-top: 4px;
+        color: #155e75;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="wrap">
+      <section class="card">
+        <h1>TaskPulse Documentation</h1>
+        <p>
+          Esta página centraliza los enlaces oficiales del proyecto TaskPulse para evitar rutas locales
+          y asegurar acceso estable desde GitHub Pages durante entrevistas y revisiones técnicas.
+        </p>
+
+        <div class="links">
+          <a href="https://taskpulse-api-dxz8.onrender.com/docs/taskpulse" target="_blank" rel="noopener noreferrer">
+            Abrir documentación backend en Render
+            <code>https://taskpulse-api-dxz8.onrender.com/docs/taskpulse</code>
+          </a>
+
+          <a href="https://taskpulse-api-dxz8.onrender.com" target="_blank" rel="noopener noreferrer">
+            Abrir servicio API TaskPulse
+            <code>https://taskpulse-api-dxz8.onrender.com</code>
+          </a>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

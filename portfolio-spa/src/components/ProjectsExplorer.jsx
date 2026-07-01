@@ -25,6 +25,7 @@ import RetroForgeShowcase from './RetroForgeShowcase.jsx'
 import WasmCryptor from './WasmCryptor.jsx'
 
 const DEFAULT_TASKPULSE_API_BASE = 'https://taskpulse-api-dxz8.onrender.com'
+const DEFAULT_TASKPULSE_DOCS_URL = 'https://anakmavi.github.io/portfolio/docs/taskpulse.html'
 
 function toAbsoluteHttpUrl(rawValue, fallbackValue) {
   const candidate = String(rawValue ?? '').trim()
@@ -50,7 +51,7 @@ const TASKPULSE_API_BASE = toAbsoluteHttpUrl(
 
 const TASKPULSE_DOCS_URL = toAbsoluteHttpUrl(
   import.meta.env.VITE_TASKPULSE_DOCS_URL,
-  `${TASKPULSE_API_BASE}/docs/taskpulse`
+  DEFAULT_TASKPULSE_DOCS_URL
 )
 
 const TECH_ICON_MAP = {
