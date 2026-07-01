@@ -241,10 +241,10 @@ function ContactSection() {
   const shouldShowError = (field) => (touched[field] || submitAttempted) && Boolean(errors[field])
 
   return (
-    <section className="rounded-2xl border border-slate-700/50 bg-slate-900/55 p-5 sm:p-6" aria-label="Formulario de contacto">
+    <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6" aria-label="Formulario de contacto">
       <div className="mb-5">
-        <h3 className="m-0 text-xl font-semibold text-slate-100">Contacto Profesional</h3>
-        <p className="mt-2 text-sm text-slate-300">
+        <h3 className="m-0 text-xl font-semibold text-slate-900">Contacto Profesional</h3>
+        <p className="mt-2 text-sm text-slate-600">
           Deja tu mensaje y coordinamos una conversacion tecnica enfocada en impacto de negocio.
         </p>
       </div>
@@ -252,94 +252,102 @@ function ContactSection() {
       <form className="space-y-4" onSubmit={handleSubmit} noValidate>
         <div className="grid gap-4 sm:grid-cols-2">
           <label className="space-y-1">
-            <span className="text-xs font-semibold uppercase tracking-[0.12em] text-slate-300">Nombre</span>
+            <span className="text-xs font-semibold uppercase tracking-[0.12em] text-slate-600">Nombre</span>
             <input
               type="text"
               value={formData.nombre}
               onChange={handleChange('nombre')}
               onBlur={handleBlur('nombre')}
-              className={`w-full rounded-xl border bg-slate-950/70 px-3 py-2 text-sm text-slate-100 outline-none transition ${
-                shouldShowError('nombre') ? 'border-rose-400/80' : 'border-slate-700/70 focus:border-cyan-300'
+              className={`w-full rounded-xl border bg-white px-3 py-2 text-sm text-slate-900 outline-none transition ${
+                shouldShowError('nombre')
+                  ? 'border-rose-400 focus:border-rose-500'
+                  : 'border-slate-300 focus:border-sky-400'
               }`}
               placeholder="Tu nombre"
               autoComplete="name"
             />
-            {shouldShowError('nombre') ? <p className="m-0 text-xs text-rose-300">{errors.nombre}</p> : null}
+            {shouldShowError('nombre') ? <p className="m-0 text-xs text-rose-600">{errors.nombre}</p> : null}
           </label>
 
           <label className="space-y-1">
-            <span className="text-xs font-semibold uppercase tracking-[0.12em] text-slate-300">Email</span>
+            <span className="text-xs font-semibold uppercase tracking-[0.12em] text-slate-600">Email</span>
             <input
               type="email"
               value={formData.email}
               onChange={handleChange('email')}
               onBlur={handleBlur('email')}
-              className={`w-full rounded-xl border bg-slate-950/70 px-3 py-2 text-sm text-slate-100 outline-none transition ${
-                shouldShowError('email') ? 'border-rose-400/80' : 'border-slate-700/70 focus:border-cyan-300'
+              className={`w-full rounded-xl border bg-white px-3 py-2 text-sm text-slate-900 outline-none transition ${
+                shouldShowError('email')
+                  ? 'border-rose-400 focus:border-rose-500'
+                  : 'border-slate-300 focus:border-sky-400'
               }`}
               placeholder="nombre@empresa.com"
               autoComplete="email"
             />
-            {shouldShowError('email') ? <p className="m-0 text-xs text-rose-300">{errors.email}</p> : null}
+            {shouldShowError('email') ? <p className="m-0 text-xs text-rose-600">{errors.email}</p> : null}
           </label>
         </div>
 
         <label className="space-y-1">
-          <span className="text-xs font-semibold uppercase tracking-[0.12em] text-slate-300">Asunto</span>
+          <span className="text-xs font-semibold uppercase tracking-[0.12em] text-slate-600">Asunto</span>
           <input
             type="text"
             value={formData.asunto}
             onChange={handleChange('asunto')}
             onBlur={handleBlur('asunto')}
-            className={`w-full rounded-xl border bg-slate-950/70 px-3 py-2 text-sm text-slate-100 outline-none transition ${
-              shouldShowError('asunto') ? 'border-rose-400/80' : 'border-slate-700/70 focus:border-cyan-300'
+            className={`w-full rounded-xl border bg-white px-3 py-2 text-sm text-slate-900 outline-none transition ${
+              shouldShowError('asunto')
+                ? 'border-rose-400 focus:border-rose-500'
+                : 'border-slate-300 focus:border-sky-400'
             }`}
             placeholder="Ej: Oportunidad Full Stack"
             autoComplete="off"
           />
-          {shouldShowError('asunto') ? <p className="m-0 text-xs text-rose-300">{errors.asunto}</p> : null}
+          {shouldShowError('asunto') ? <p className="m-0 text-xs text-rose-600">{errors.asunto}</p> : null}
         </label>
 
         <label className="space-y-1">
-          <span className="text-xs font-semibold uppercase tracking-[0.12em] text-slate-300">Mensaje</span>
+          <span className="text-xs font-semibold uppercase tracking-[0.12em] text-slate-600">Mensaje</span>
           <textarea
             value={formData.mensaje}
             onChange={handleChange('mensaje')}
             onBlur={handleBlur('mensaje')}
             rows={6}
-            className={`w-full resize-y rounded-xl border bg-slate-950/70 px-3 py-2 text-sm text-slate-100 outline-none transition ${
-              shouldShowError('mensaje') ? 'border-rose-400/80' : 'border-slate-700/70 focus:border-cyan-300'
+            className={`w-full resize-y rounded-xl border bg-white px-3 py-2 text-sm text-slate-900 outline-none transition ${
+              shouldShowError('mensaje')
+                ? 'border-rose-400 focus:border-rose-500'
+                : 'border-slate-300 focus:border-sky-400'
             }`}
             placeholder="Describe objetivo, alcance y contexto tecnico de la oportunidad..."
           />
-          {shouldShowError('mensaje') ? <p className="m-0 text-xs text-rose-300">{errors.mensaje}</p> : null}
+          {shouldShowError('mensaje') ? <p className="m-0 text-xs text-rose-600">{errors.mensaje}</p> : null}
         </label>
 
         <div className="flex flex-wrap items-center gap-3 pt-1">
           <button
             type="submit"
             disabled={status === 'loading'}
-            className="inline-flex items-center justify-center rounded-xl border border-cyan-300/70 bg-cyan-400/20 px-4 py-2 text-sm font-semibold text-cyan-100 transition hover:bg-cyan-300/25 disabled:cursor-not-allowed disabled:opacity-50"
+            className="inline-flex items-center justify-center rounded-xl border border-sky-300 bg-sky-50 px-4 py-2 text-sm font-semibold text-sky-700 transition hover:bg-sky-100 disabled:cursor-not-allowed disabled:opacity-50"
           >
             {status === 'loading' ? 'Enviando...' : 'Enviar Mensaje'}
           </button>
 
           {status === 'success' ? (
-            <p className="m-0 text-sm text-emerald-300">{feedbackMessage}</p>
+            <p className="m-0 text-sm text-emerald-700">{feedbackMessage}</p>
           ) : null}
 
           {status === 'error' ? (
-            <p className="m-0 text-sm text-rose-300">{feedbackMessage}</p>
+            <p className="m-0 text-sm text-rose-600">{feedbackMessage}</p>
           ) : null}
         </div>
       </form>
 
-      <footer className="mt-6 flex flex-wrap items-center gap-3 border-t border-slate-700/60 pt-4">
+      <footer className="mt-6 flex flex-wrap items-center gap-3 border-t border-slate-200 pt-4">
         <a
           href="https://www.linkedin.com/in/anak-martel"
           target="_blank"
           rel="noreferrer"
-          className="inline-flex items-center gap-2 rounded-lg border border-slate-600/70 px-3 py-2 text-sm text-slate-200 transition hover:border-cyan-300/70 hover:text-cyan-200"
+          className="inline-flex items-center gap-2 rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-700 transition hover:border-sky-300 hover:text-sky-700"
         >
           <LinkedInIcon />
           LinkedIn
@@ -349,7 +357,7 @@ function ContactSection() {
           href="https://github.com/AnakMaVi"
           target="_blank"
           rel="noreferrer"
-          className="inline-flex items-center gap-2 rounded-lg border border-slate-600/70 px-3 py-2 text-sm text-slate-200 transition hover:border-cyan-300/70 hover:text-cyan-200"
+          className="inline-flex items-center gap-2 rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-700 transition hover:border-sky-300 hover:text-sky-700"
         >
           <GitHubIcon />
           GitHub
@@ -358,7 +366,7 @@ function ContactSection() {
         <a
           href={CV_DOWNLOAD_URL}
           download="CV_Anak_Martel.pdf"
-          className="inline-flex items-center gap-2 rounded-lg border border-cyan-300/70 bg-cyan-300/15 px-3 py-2 text-sm font-semibold text-cyan-100 transition hover:bg-cyan-300/25"
+          className="inline-flex items-center gap-2 rounded-lg border border-sky-300 bg-sky-50 px-3 py-2 text-sm font-semibold text-sky-700 transition hover:bg-sky-100"
         >
           <DownloadIcon />
           Descargar CV
