@@ -175,10 +175,10 @@ const PROJECTS_MOCK = [
   },
   {
     id: 'retroforge',
-    title: 'GlassForge',
-    subtitle: 'UI Kit Glassmorphism Corporativo',
+    title: 'NeoMorph Forge',
+    subtitle: 'UI Kit Neomorphism de Alto Contraste',
     summary:
-      'Sistema visual basado en Glassmorphism para interfaces B2B: superficies translúcidas, jerarquía limpia y microinteracciones suaves con CSS moderno.',
+      'Sistema visual Neomorphism con alto contraste frente al layout corporativo principal: superficies táctiles, relieves suaves y profundidad dual para interfaces memorables.',
     categories: ['Frontend', 'Design System', 'CSS'],
     stack: ['HTML5', 'CSS Grid', 'CSS Keyframes', 'Custom Properties'],
     metricsHours: 12,
@@ -524,6 +524,7 @@ function ProjectsExplorer() {
   const [searchQuery, setSearchQuery] = useState('')
   const [activeCategory, setActiveCategory] = useState('Todos')
   const [selectedProjectId, setSelectedProjectId] = useState(null)
+  const detailSectionRef = useRef(null)
 
   const categories = useMemo(() => {
     const unique = new Set()
@@ -570,6 +571,19 @@ function ProjectsExplorer() {
     [selectedProjectId]
   )
 
+  useEffect(() => {
+    if (!selectedProjectId || !detailSectionRef.current) {
+      return
+    }
+
+    requestAnimationFrame(() => {
+      detailSectionRef.current?.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      })
+    })
+  }, [selectedProjectId])
+
   return (
     <section className="space-y-5" aria-label="Explorador de proyectos">
       <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm sm:p-5">
@@ -614,7 +628,7 @@ function ProjectsExplorer() {
       </div>
 
       {selectedProject ? (
-        <article className="space-y-4 rounded-xl border border-slate-200 bg-white p-4 shadow-sm sm:p-5">
+        <article ref={detailSectionRef} className="space-y-4 rounded-xl border border-slate-200 bg-white p-4 shadow-sm sm:p-5">
           <div className="flex flex-wrap items-start justify-between gap-3">
             <div>
               <p className="m-0 text-xs uppercase tracking-[0.14em] text-sky-600">Detalle del proyecto</p>
