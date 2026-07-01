@@ -18,7 +18,8 @@ const PROJECTS_MOCK = [
       'Orquestacion de agentes de IA para analisis de codigo vulnerable, investigacion CVE y propuesta de parches.',
     categories: ['IA', 'Backend', 'DevOps'],
     stack: ['Python', 'FastAPI', 'CrewAI', 'Docker'],
-    metricsHours: 26
+    metricsHours: 26,
+    implementationStatus: 'pending'
   },
   {
     id: 'chronostream',
@@ -28,7 +29,8 @@ const PROJECTS_MOCK = [
       'Modulo criptografico en Rust compilado a WebAssembly para ejecutar cifrado y hashing directamente en navegador.',
     categories: ['WebAssembly', 'Frontend', 'Performance'],
     stack: ['Rust', 'wasm-pack', 'Web Workers'],
-    metricsHours: 22
+    metricsHours: 22,
+    implementationStatus: 'live'
   },
   {
     id: 'neuralcore',
@@ -38,7 +40,8 @@ const PROJECTS_MOCK = [
       'Procesamiento paralelo de payloads con ThreadPoolExecutor y CompletableFuture bajo limites de memoria controlados.',
     categories: ['Backend', 'Concurrency'],
     stack: ['Java 17', 'Maven', 'Jackson', 'JUnit'],
-    metricsHours: 20
+    metricsHours: 20,
+    implementationStatus: 'pending'
   },
   {
     id: 'custommvc',
@@ -48,7 +51,8 @@ const PROJECTS_MOCK = [
       'Framework MVC en PHP puro con enrutado por expresiones regulares e inyeccion de dependencias por Reflection.',
     categories: ['Backend', 'Arquitectura'],
     stack: ['PHP 8.2', 'PDO', 'MySQL'],
-    metricsHours: 18
+    metricsHours: 18,
+    implementationStatus: 'pending'
   },
   {
     id: 'taskpulse',
@@ -58,7 +62,8 @@ const PROJECTS_MOCK = [
       'Jobs asincronos con Redis para calculo de metricas de sprint y analitica de productividad en entornos SaaS.',
     categories: ['Backend', 'DevOps'],
     stack: ['Laravel 11', 'Redis', 'PostgreSQL', 'Horizon'],
-    metricsHours: 22
+    metricsHours: 22,
+    implementationStatus: 'live'
   },
   {
     id: 'pyinsight',
@@ -68,7 +73,8 @@ const PROJECTS_MOCK = [
       'Lectura incremental con generadores y analitica heuristica para disparo de alertas de infraestructura.',
     categories: ['Data', 'Backend', 'Performance'],
     stack: ['Python', 'Pandas', 'Regex', 'Webhooks'],
-    metricsHours: 16
+    metricsHours: 16,
+    implementationStatus: 'pending'
   },
   {
     id: 'cryptowatch',
@@ -78,7 +84,8 @@ const PROJECTS_MOCK = [
       'Cliente WebSocket resiliente con reconexion exponencial y render en tiempo real con control de memoria.',
     categories: ['Frontend', 'Realtime', 'Performance'],
     stack: ['JavaScript', 'WebSockets', 'Chart.js'],
-    metricsHours: 14
+    metricsHours: 14,
+    implementationStatus: 'pending'
   },
   {
     id: 'retroforge',
@@ -88,7 +95,8 @@ const PROJECTS_MOCK = [
       'Libreria de componentes responsivos con identidad industrial y animaciones complejas ejecutadas por CSS nativo.',
     categories: ['Frontend', 'Design System', 'CSS'],
     stack: ['HTML5', 'CSS Grid', 'CSS Keyframes', 'Custom Properties'],
-    metricsHours: 12
+    metricsHours: 12,
+    implementationStatus: 'live'
   }
 ]
 
@@ -97,6 +105,12 @@ function GenericProjectDetail({ project }) {
     <article className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
       <h4 className="m-0 text-lg font-semibold text-slate-900">Resumen Tecnico</h4>
       <p className="mt-2 text-sm leading-relaxed text-slate-600">{project.summary}</p>
+
+      {project.implementationStatus === 'pending' ? (
+        <p className="mt-3 rounded-lg border border-amber-300 bg-amber-50 px-3 py-2 text-xs font-medium text-amber-800">
+          Proyecto en fase de definicion: aun no hay logica asociada en esta demo.
+        </p>
+      ) : null}
 
       <div className="mt-4 grid gap-4 sm:grid-cols-2">
         <div className="rounded-lg border border-slate-200 bg-slate-50 p-4">
@@ -515,6 +529,11 @@ function ProjectsExplorer() {
               <p className="m-0 text-xs uppercase tracking-[0.14em] text-sky-600">Detalle del proyecto</p>
               <h3 className="m-0 mt-1 text-2xl font-semibold text-slate-900">{selectedProject.title}</h3>
               <p className="m-0 mt-1 text-sm text-slate-600">{selectedProject.subtitle}</p>
+              {selectedProject.implementationStatus === 'pending' ? (
+                <span className="mt-2 inline-flex rounded-full border border-amber-300 bg-amber-50 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.08em] text-amber-700">
+                  No iniciado
+                </span>
+              ) : null}
             </div>
             <button
               type="button"
@@ -545,7 +564,18 @@ function ProjectsExplorer() {
             onClick={() => setSelectedProjectId(project.id)}
             className="group rounded-2xl border border-slate-200 bg-white p-4 text-left shadow-sm transition duration-200 hover:-translate-y-1 hover:border-sky-300 hover:shadow-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-400"
           >
-            <p className="m-0 text-xs uppercase tracking-[0.14em] text-sky-600">{project.id}</p>
+            <div className="flex items-start justify-between gap-2">
+              <p className="m-0 text-xs uppercase tracking-[0.14em] text-sky-600">{project.id}</p>
+              {project.implementationStatus === 'pending' ? (
+                <span className="rounded-full border border-amber-300 bg-amber-50 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.08em] text-amber-700">
+                  No iniciado
+                </span>
+              ) : (
+                <span className="rounded-full border border-emerald-300 bg-emerald-50 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.08em] text-emerald-700">
+                  Activo
+                </span>
+              )}
+            </div>
             <h3 className="m-0 mt-2 text-lg font-semibold text-slate-900">{project.title}</h3>
             <p className="m-0 mt-1 text-sm text-slate-600">{project.subtitle}</p>
             <p className="m-0 mt-3 text-sm leading-relaxed text-slate-500">{project.summary}</p>

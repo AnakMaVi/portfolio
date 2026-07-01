@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 
-const CHRONOSTREAM_DOCS_URL = '/docs/chronostream.html'
+const CHRONOSTREAM_DOCS_URL = `${import.meta.env.BASE_URL}docs/chronostream.html`
 
 function jsEncryptData(input, key) {
   if (!key || key.length === 0) {
@@ -363,23 +363,23 @@ function WasmCryptor() {
 
   const statusTone =
     status === 'ready'
-      ? 'border-emerald-300/60 bg-emerald-500/15 text-emerald-100'
+      ? 'border-emerald-300 bg-emerald-50 text-emerald-700'
       : status === 'error'
-        ? 'border-rose-300/60 bg-rose-500/15 text-rose-100'
-        : 'border-amber-300/60 bg-amber-500/15 text-amber-100'
+        ? 'border-rose-300 bg-rose-50 text-rose-700'
+        : 'border-amber-300 bg-amber-50 text-amber-700'
 
   return (
-    <section className="space-y-4 rounded-xl border border-cyan-400/35 bg-slate-950/50 p-5">
+    <section className="space-y-4 rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
       <header className="space-y-2">
-        <h4 className="m-0 text-lg font-semibold text-slate-100">WasmCryptor | ChronoStream</h4>
-        <p className="m-0 text-sm text-slate-300">
+        <h4 className="m-0 text-lg font-semibold text-slate-900">WasmCryptor | ChronoStream</h4>
+        <p className="m-0 text-sm text-slate-600">
           Cifrado simetrico compilado en Rust y ejecutado en WebAssembly local para demostrar
           rendimiento nativo dentro del navegador.
         </p>
         <button
           type="button"
           onClick={() => window.open(CHRONOSTREAM_DOCS_URL, '_blank', 'noopener,noreferrer')}
-          className="rounded-lg border border-emerald-300/60 bg-emerald-500/15 px-3 py-2 text-sm font-medium text-emerald-100 transition hover:bg-emerald-500/25"
+          className="rounded-lg border border-emerald-300 bg-emerald-100 px-3 py-2 text-sm font-medium text-emerald-800 transition hover:bg-emerald-200"
         >
           Abrir documentacion tecnica de ChronoStream
         </button>
@@ -388,33 +388,33 @@ function WasmCryptor() {
 
       <div className="grid gap-4 lg:grid-cols-2">
         <label className="space-y-2">
-          <span className="text-xs font-semibold uppercase tracking-[0.12em] text-cyan-300">
+          <span className="text-xs font-semibold uppercase tracking-[0.12em] text-sky-600">
             Texto de entrada
           </span>
           <textarea
             rows={7}
             value={inputText}
             onChange={(event) => setInputText(event.target.value)}
-            className="w-full rounded-lg border border-slate-700/70 bg-slate-950/80 px-3 py-2 text-sm text-slate-100 outline-none transition focus:border-cyan-300"
+            className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-800 outline-none transition focus:border-sky-400"
           />
         </label>
 
         <label className="space-y-2">
-          <span className="text-xs font-semibold uppercase tracking-[0.12em] text-cyan-300">
+          <span className="text-xs font-semibold uppercase tracking-[0.12em] text-sky-600">
             Clave secreta
           </span>
           <input
             type="text"
             value={secretKey}
             onChange={(event) => setSecretKey(event.target.value)}
-            className="w-full rounded-lg border border-slate-700/70 bg-slate-950/80 px-3 py-2 text-sm text-slate-100 outline-none transition focus:border-cyan-300"
+            className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-800 outline-none transition focus:border-sky-400"
           />
 
           <button
             type="button"
             onClick={runEncryption}
             disabled={status !== 'ready'}
-            className="rounded-lg border border-cyan-300/60 bg-cyan-500/15 px-3 py-2 text-sm font-medium text-cyan-100 transition hover:bg-cyan-500/25 disabled:cursor-not-allowed disabled:opacity-60"
+            className="rounded-lg border border-sky-300 bg-sky-100 px-3 py-2 text-sm font-medium text-sky-800 transition hover:bg-sky-200 disabled:cursor-not-allowed disabled:opacity-60"
           >
             Cifrar con WebAssembly
           </button>
@@ -423,7 +423,7 @@ function WasmCryptor() {
             type="button"
             onClick={runBenchmark}
             disabled={status !== 'ready'}
-            className="rounded-lg border border-indigo-300/60 bg-indigo-500/15 px-3 py-2 text-sm font-medium text-indigo-100 transition hover:bg-indigo-500/25 disabled:cursor-not-allowed disabled:opacity-60"
+            className="rounded-lg border border-indigo-300 bg-indigo-100 px-3 py-2 text-sm font-medium text-indigo-800 transition hover:bg-indigo-200 disabled:cursor-not-allowed disabled:opacity-60"
           >
             Benchmark 100 iteraciones (p50/p95)
           </button>
@@ -432,27 +432,27 @@ function WasmCryptor() {
             type="button"
             onClick={runEndToEnd}
             disabled={status !== 'ready'}
-            className="rounded-lg border border-amber-300/60 bg-amber-500/15 px-3 py-2 text-sm font-medium text-amber-100 transition hover:bg-amber-500/25 disabled:cursor-not-allowed disabled:opacity-60"
+            className="rounded-lg border border-amber-300 bg-amber-100 px-3 py-2 text-sm font-medium text-amber-800 transition hover:bg-amber-200 disabled:cursor-not-allowed disabled:opacity-60"
           >
             Ejecutar demo end-to-end
           </button>
 
           <div className="grid gap-2 sm:grid-cols-3">
-            <div className="rounded-lg border border-slate-700/70 bg-slate-900/70 p-2">
-              <p className="m-0 text-xs text-slate-400">WASM (us)</p>
-              <p className="m-0 mt-1 text-sm font-semibold text-emerald-200">
+            <div className="rounded-lg border border-slate-200 bg-slate-50 p-2">
+              <p className="m-0 text-xs text-slate-500">WASM (us)</p>
+              <p className="m-0 mt-1 text-sm font-semibold text-emerald-700">
                 {wasmMicros !== null ? wasmMicros.toFixed(3) : '--'}
               </p>
             </div>
-            <div className="rounded-lg border border-slate-700/70 bg-slate-900/70 p-2">
-              <p className="m-0 text-xs text-slate-400">JS puro (us)</p>
-              <p className="m-0 mt-1 text-sm font-semibold text-slate-200">
+            <div className="rounded-lg border border-slate-200 bg-slate-50 p-2">
+              <p className="m-0 text-xs text-slate-500">JS puro (us)</p>
+              <p className="m-0 mt-1 text-sm font-semibold text-slate-700">
                 {jsMicros !== null ? jsMicros.toFixed(3) : '--'}
               </p>
             </div>
-            <div className="rounded-lg border border-slate-700/70 bg-slate-900/70 p-2">
-              <p className="m-0 text-xs text-slate-400">Ratio JS/WASM</p>
-              <p className="m-0 mt-1 text-sm font-semibold text-cyan-200">
+            <div className="rounded-lg border border-slate-200 bg-slate-50 p-2">
+              <p className="m-0 text-xs text-slate-500">Ratio JS/WASM</p>
+              <p className="m-0 mt-1 text-sm font-semibold text-sky-700">
                 {speedup !== null ? `${speedup.toFixed(2)}x` : '--'}
               </p>
             </div>
@@ -462,39 +462,39 @@ function WasmCryptor() {
 
       <div className="grid gap-4 lg:grid-cols-2">
         <label className="space-y-2">
-          <span className="text-xs font-semibold uppercase tracking-[0.12em] text-cyan-300">
+          <span className="text-xs font-semibold uppercase tracking-[0.12em] text-sky-600">
             Texto para SHA-256
           </span>
           <textarea
             rows={6}
             value={hashInput}
             onChange={(event) => setHashInput(event.target.value)}
-            className="w-full rounded-lg border border-slate-700/70 bg-slate-950/80 px-3 py-2 text-sm text-slate-100 outline-none transition focus:border-cyan-300"
+            className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-800 outline-none transition focus:border-sky-400"
           />
           <button
             type="button"
             onClick={runHash}
             disabled={status !== 'ready'}
-            className="rounded-lg border border-emerald-300/60 bg-emerald-500/15 px-3 py-2 text-sm font-medium text-emerald-100 transition hover:bg-emerald-500/25 disabled:cursor-not-allowed disabled:opacity-60"
+            className="rounded-lg border border-emerald-300 bg-emerald-100 px-3 py-2 text-sm font-medium text-emerald-800 transition hover:bg-emerald-200 disabled:cursor-not-allowed disabled:opacity-60"
           >
             Generar hash SHA-256 con WASM
           </button>
-          <p className="m-0 text-xs text-slate-400">
+          <p className="m-0 text-xs text-slate-500">
             Tiempo hash (us): {hashMicros !== null ? hashMicros.toFixed(3) : '--'}
           </p>
         </label>
 
         <div className="space-y-2">
-          <p className="m-0 text-xs font-semibold uppercase tracking-[0.12em] text-cyan-300">
+          <p className="m-0 text-xs font-semibold uppercase tracking-[0.12em] text-sky-600">
             Hash de salida
           </p>
-          <pre className="max-h-56 overflow-auto rounded-md border border-slate-700/70 bg-slate-950/80 p-3 text-xs text-slate-200">
+          <pre className="max-h-56 overflow-auto rounded-md border border-slate-200 bg-white p-3 text-xs text-slate-700">
             {hashOutput || 'Sin salida de hash todavia.'}
           </pre>
           <button
             type="button"
             onClick={() => copyToClipboard(hashOutput, 'Hash')}
-            className="rounded-lg border border-slate-600/80 px-3 py-2 text-sm font-medium text-slate-100 transition hover:border-cyan-300"
+            className="rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-medium text-slate-700 transition hover:border-sky-400"
           >
             Copiar hash
           </button>
@@ -502,11 +502,11 @@ function WasmCryptor() {
       </div>
 
       {benchmark ? (
-        <section className="space-y-3 rounded-lg border border-slate-700/70 bg-slate-900/60 p-4">
-          <p className="m-0 text-xs font-semibold uppercase tracking-[0.12em] text-cyan-300">
+        <section className="space-y-3 rounded-lg border border-slate-200 bg-slate-50 p-4">
+          <p className="m-0 text-xs font-semibold uppercase tracking-[0.12em] text-sky-600">
             Mini grafica latencias (microsegundos)
           </p>
-          <svg viewBox="0 0 620 220" className="h-56 w-full rounded-md border border-slate-700/70 bg-slate-950/80">
+          <svg viewBox="0 0 620 220" className="h-56 w-full rounded-md border border-slate-200 bg-white">
             {(() => {
               const maxValue = Math.max(...latencyBars.map((bar) => bar.value), 1)
               const chartLeft = 50
@@ -541,15 +541,15 @@ function WasmCryptor() {
           </svg>
 
           <div className="grid gap-2 sm:grid-cols-2">
-            <p className="m-0 text-sm text-slate-300">
+            <p className="m-0 text-sm text-slate-700">
               Speedup p50 (JS/WASM):{' '}
-              <strong className="text-cyan-200">
+              <strong className="text-sky-700">
                 {benchmark.speedupP50 !== null ? `${benchmark.speedupP50.toFixed(2)}x` : '--'}
               </strong>
             </p>
-            <p className="m-0 text-sm text-slate-300">
+            <p className="m-0 text-sm text-slate-700">
               Speedup p95 (JS/WASM):{' '}
-              <strong className="text-cyan-200">
+              <strong className="text-sky-700">
                 {benchmark.speedupP95 !== null ? `${benchmark.speedupP95.toFixed(2)}x` : '--'}
               </strong>
             </p>
@@ -558,97 +558,97 @@ function WasmCryptor() {
       ) : null}
 
       {e2eReport ? (
-        <section className="space-y-3 rounded-lg border border-cyan-300/50 bg-cyan-500/10 p-4">
-          <p className="m-0 text-xs font-semibold uppercase tracking-[0.12em] text-cyan-200">
+        <section className="space-y-3 rounded-lg border border-sky-300 bg-sky-50 p-4">
+          <p className="m-0 text-xs font-semibold uppercase tracking-[0.12em] text-sky-700">
             Verificacion end-to-end
           </p>
-          <p className="m-0 text-xs text-slate-300">Ultima ejecucion: {e2eReport.executedAt}</p>
+          <p className="m-0 text-xs text-slate-600">Ultima ejecucion: {e2eReport.executedAt}</p>
           <div className="grid gap-2 sm:grid-cols-3">
-            <div className="rounded-lg border border-slate-700/70 bg-slate-900/70 p-3">
-              <p className="m-0 text-xs text-slate-400">Paso 1</p>
-              <p className="m-0 mt-1 text-sm font-semibold text-emerald-200">Cifrado OK</p>
-              <p className="m-0 mt-1 text-xs text-slate-400">{e2eReport.encryptMicros.toFixed(3)} us</p>
+            <div className="rounded-lg border border-slate-200 bg-white p-3">
+              <p className="m-0 text-xs text-slate-500">Paso 1</p>
+              <p className="m-0 mt-1 text-sm font-semibold text-emerald-700">Cifrado OK</p>
+              <p className="m-0 mt-1 text-xs text-slate-500">{e2eReport.encryptMicros.toFixed(3)} us</p>
             </div>
-            <div className="rounded-lg border border-slate-700/70 bg-slate-900/70 p-3">
-              <p className="m-0 text-xs text-slate-400">Paso 2</p>
-              <p className={`m-0 mt-1 text-sm font-semibold ${e2eReport.roundTripOk ? 'text-emerald-200' : 'text-rose-200'}`}>
+            <div className="rounded-lg border border-slate-200 bg-white p-3">
+              <p className="m-0 text-xs text-slate-500">Paso 2</p>
+              <p className={`m-0 mt-1 text-sm font-semibold ${e2eReport.roundTripOk ? 'text-emerald-700' : 'text-rose-700'}`}>
                 {e2eReport.roundTripOk ? 'Round-trip OK' : 'Round-trip no valido'}
               </p>
-              <p className="m-0 mt-1 text-xs text-slate-400">{e2eReport.decryptMicros.toFixed(3)} us</p>
+              <p className="m-0 mt-1 text-xs text-slate-500">{e2eReport.decryptMicros.toFixed(3)} us</p>
             </div>
-            <div className="rounded-lg border border-slate-700/70 bg-slate-900/70 p-3">
-              <p className="m-0 text-xs text-slate-400">Paso 3</p>
-              <p className={`m-0 mt-1 text-sm font-semibold ${e2eReport.hashReady ? 'text-emerald-200' : 'text-rose-200'}`}>
+            <div className="rounded-lg border border-slate-200 bg-white p-3">
+              <p className="m-0 text-xs text-slate-500">Paso 3</p>
+              <p className={`m-0 mt-1 text-sm font-semibold ${e2eReport.hashReady ? 'text-emerald-700' : 'text-rose-700'}`}>
                 {e2eReport.hashReady ? 'Hash SHA-256 OK' : 'Hash no generado'}
               </p>
-              <p className="m-0 mt-1 text-xs text-slate-400">{e2eReport.hashMicros.toFixed(3)} us</p>
+              <p className="m-0 mt-1 text-xs text-slate-500">{e2eReport.hashMicros.toFixed(3)} us</p>
             </div>
           </div>
         </section>
       ) : null}
 
       {errorMessage ? (
-        <p className="m-0 rounded-lg border border-rose-300/50 bg-rose-500/10 px-3 py-2 text-sm text-rose-200">
+        <p className="m-0 rounded-lg border border-rose-300 bg-rose-50 px-3 py-2 text-sm text-rose-700">
           {errorMessage}
         </p>
       ) : null}
 
       <div className="space-y-2">
-        <p className="m-0 text-xs font-semibold uppercase tracking-[0.12em] text-cyan-300">
+        <p className="m-0 text-xs font-semibold uppercase tracking-[0.12em] text-sky-600">
           Salida cifrada (Base64)
         </p>
-        <pre className="max-h-56 overflow-auto rounded-md border border-slate-700/70 bg-slate-950/80 p-3 text-xs text-slate-200">
+        <pre className="max-h-56 overflow-auto rounded-md border border-slate-200 bg-white p-3 text-xs text-slate-700">
           {encryptedWasm || 'Sin salida todavia.'}
         </pre>
         <div className="flex flex-wrap gap-2">
           <button
             type="button"
             onClick={() => copyToClipboard(encryptedWasm, 'Cifrado')}
-            className="rounded-lg border border-slate-600/80 px-3 py-2 text-sm font-medium text-slate-100 transition hover:border-cyan-300"
+            className="rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-medium text-slate-700 transition hover:border-sky-400"
           >
             Copiar cifrado
           </button>
-          {copyFeedback ? <p className="m-0 self-center text-xs text-slate-400">{copyFeedback}</p> : null}
+          {copyFeedback ? <p className="m-0 self-center text-xs text-slate-500">{copyFeedback}</p> : null}
         </div>
       </div>
 
       <div className="grid gap-4 lg:grid-cols-2">
         <label className="space-y-2">
-          <span className="text-xs font-semibold uppercase tracking-[0.12em] text-cyan-300">
+          <span className="text-xs font-semibold uppercase tracking-[0.12em] text-sky-600">
             Entrada para descifrar (Base64)
           </span>
           <textarea
             rows={4}
             value={decryptInput}
             onChange={(event) => setDecryptInput(event.target.value)}
-            className="w-full rounded-lg border border-slate-700/70 bg-slate-950/80 px-3 py-2 text-sm text-slate-100 outline-none transition focus:border-cyan-300"
+            className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-800 outline-none transition focus:border-sky-400"
           />
           <button
             type="button"
             onClick={runDecryption}
-            className="rounded-lg border border-amber-300/60 bg-amber-500/15 px-3 py-2 text-sm font-medium text-amber-100 transition hover:bg-amber-500/25"
+            className="rounded-lg border border-amber-300 bg-amber-100 px-3 py-2 text-sm font-medium text-amber-800 transition hover:bg-amber-200"
           >
             Descifrar salida
           </button>
         </label>
 
         <div className="space-y-2">
-          <p className="m-0 text-xs font-semibold uppercase tracking-[0.12em] text-cyan-300">
+          <p className="m-0 text-xs font-semibold uppercase tracking-[0.12em] text-sky-600">
             Resultado descifrado
           </p>
-          <pre className="max-h-56 overflow-auto rounded-md border border-slate-700/70 bg-slate-950/80 p-3 text-xs text-slate-200">
+          <pre className="max-h-56 overflow-auto rounded-md border border-slate-200 bg-white p-3 text-xs text-slate-700">
             {decryptedText || 'Sin salida de descifrado todavia.'}
           </pre>
-          <p className="m-0 text-xs text-slate-400">
+          <p className="m-0 text-xs text-slate-500">
             Round-trip OK:{' '}
-            <strong className={decryptedText && decryptedText === inputText ? 'text-emerald-300' : 'text-slate-300'}>
+            <strong className={decryptedText && decryptedText === inputText ? 'text-emerald-700' : 'text-slate-700'}>
               {decryptedText ? (decryptedText === inputText ? 'si' : 'no') : '--'}
             </strong>
           </p>
           <button
             type="button"
             onClick={() => copyToClipboard(decryptedText, 'Texto descifrado')}
-            className="rounded-lg border border-slate-600/80 px-3 py-2 text-sm font-medium text-slate-100 transition hover:border-cyan-300"
+            className="rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-medium text-slate-700 transition hover:border-sky-400"
           >
             Copiar texto descifrado
           </button>

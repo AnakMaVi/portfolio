@@ -6,6 +6,7 @@ const FORMSPREE_ENDPOINT =
   (import.meta.env.VITE_FORMSPREE_ENDPOINT || 'https://formspree.io/f/xnjkplvn').trim()
 const SUPABASE_TABLE = (import.meta.env.VITE_SUPABASE_CONTACTS_TABLE || 'contact_messages').trim()
 const DESTINATION_EMAIL = 'anakmartelviera@gmail.com'
+const CV_DOWNLOAD_URL = `${import.meta.env.BASE_URL}CV_Anak_Martel.pdf`
 
 const INITIAL_FORM = {
   nombre: '',
@@ -355,7 +356,7 @@ function ContactSection() {
         </a>
 
         <a
-          href="/CV_Anak_Martel.pdf"
+          href={CV_DOWNLOAD_URL}
           download="CV_Anak_Martel.pdf"
           className="inline-flex items-center gap-2 rounded-lg border border-cyan-300/70 bg-cyan-300/15 px-3 py-2 text-sm font-semibold text-cyan-100 transition hover:bg-cyan-300/25"
         >

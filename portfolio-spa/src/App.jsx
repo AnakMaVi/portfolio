@@ -118,7 +118,12 @@ function Navbar({ activeView, setActiveView, isMobileMenuOpen, setIsMobileMenuOp
   return (
     <header className="fixed inset-x-0 top-0 z-50 border-b border-slate-200 bg-white/92 backdrop-blur-lg">
       <div className="mx-auto flex w-full max-w-6xl items-center justify-between px-4 py-3 sm:px-6">
-        <div className="text-sm font-semibold tracking-[0.18em] text-slate-800">ANAK MARTEL</div>
+        <div className="flex items-center gap-3">
+          <div className="text-sm font-semibold tracking-[0.18em] text-slate-800">ANAK MARTEL</div>
+          <span className="rounded-full border border-amber-300 bg-amber-50 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-amber-700">
+            Portfolio en desarrollo
+          </span>
+        </div>
 
         <nav className="hidden items-center gap-2 md:flex" aria-label="Navegacion principal">
           {NAV_ITEMS.map((item) => {
