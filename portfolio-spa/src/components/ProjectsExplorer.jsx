@@ -175,16 +175,34 @@ const PROJECTS_MOCK = [
   },
   {
     id: 'retroforge',
-    title: 'NeoMorph Forge',
-    subtitle: 'UI Kit Neomorphism de Alto Contraste',
+    title: 'CyberPulse Forge',
+    subtitle: 'UI Kit Cyberpunk Inmersivo',
     summary:
-      'Sistema visual Neomorphism con alto contraste frente al layout corporativo principal: superficies táctiles, relieves suaves y profundidad dual para interfaces memorables.',
+      'Sistema visual cyberpunk de alto impacto con capas neon, grillas dinámicas, paneles HUD y microinteracciones intensas para demos técnicas memorables.',
     categories: ['Frontend', 'Design System', 'CSS'],
     stack: ['HTML5', 'CSS Grid', 'CSS Keyframes', 'Custom Properties'],
     metricsHours: 12,
     implementationStatus: 'live'
   }
 ]
+
+function getDetailScrollOffset() {
+  if (typeof window === 'undefined') {
+    return 112
+  }
+
+  const viewportWidth = window.innerWidth
+
+  if (viewportWidth < 640) {
+    return 92
+  }
+
+  if (viewportWidth < 1024) {
+    return 108
+  }
+
+  return 124
+}
 
 function GenericProjectDetail({ project }) {
   return (
@@ -577,9 +595,14 @@ function ProjectsExplorer() {
     }
 
     requestAnimationFrame(() => {
-      detailSectionRef.current?.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start'
+      const offset = getDetailScrollOffset()
+      const rect = detailSectionRef.current.getBoundingClientRect()
+      const absoluteTop = window.scrollY + rect.top
+      const targetTop = Math.max(absoluteTop - offset, 0)
+
+      window.scrollTo({
+        top: targetTop,
+        behavior: 'smooth'
       })
     })
   }, [selectedProjectId])

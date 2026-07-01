@@ -78,7 +78,7 @@ const VIEW_CONTENT = {
   Proyectos: {
     title: 'Proyectos Técnicos',
     subtitle: 'Arquitectura in-browser y backends contenerizados',
-    body: 'Todos los proyectos de este portfolio son y serán ejecutables desde el propio navegador, con demostraciones visibles para entrevistas técnicas. Además, cada solución está diseñada para desplegarse con Docker y Docker Compose, facilitando una evaluación rápida, reproducible y vistosa para reclutadores IT.'
+    body: 'Todos los proyectos de este portfolio son y serán ejecutables desde el propio navegador, con demostraciones visibles para entrevistas técnicas. Además, cada solución está diseñada para desplegarse con Docker y Docker Compose, facilitando una evaluación rápida, reproducible y vistosa.'
   },
   Certificaciones: {
     title: 'Certificaciones y Formación Continua',
