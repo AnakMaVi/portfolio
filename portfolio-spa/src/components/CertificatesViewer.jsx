@@ -12,7 +12,7 @@ export const CERTIFICADOS_MOCK = [
   },
   {
     id: 'cert-02',
-    titulo: 'PHP y Programacion Orientada a Objetos',
+    titulo: 'PHP y Programación Orientada a Objetos',
     entidadEmisora: 'Programming Hub',
     anioEmision: 2024,
     tags: ['PHP', 'OOP', 'Backend'],
@@ -48,7 +48,7 @@ export const CERTIFICADOS_MOCK = [
   },
   {
     id: 'cert-06',
-    titulo: 'Desarrollo Movil con Android Studio',
+    titulo: 'Desarrollo Móvil con Android Studio',
     entidadEmisora: 'Universidad Complutense de Madrid',
     anioEmision: 2023,
     tags: ['Android', 'Mobile', 'UI'],
@@ -170,9 +170,9 @@ function CertificatesViewer({ certificates = CERTIFICADOS_MOCK }) {
     <section className="space-y-5" aria-label="Visor de certificados">
       <div className="flex items-end justify-between gap-4">
         <div>
-          <h3 className="m-0 text-xl font-semibold text-slate-100">Certificados Tecnicos</h3>
+          <h3 className="m-0 text-xl font-semibold text-slate-100">Certificados técnicos</h3>
           <p className="mt-1 text-sm text-slate-300">
-            Coleccion profesional con metadatos y tags tecnologicos.
+            Colección profesional con metadatos y tags tecnológicos.
           </p>
         </div>
         <span className="rounded-full border border-cyan-400/40 bg-cyan-500/10 px-3 py-1 text-xs font-semibold text-cyan-200">
@@ -182,7 +182,7 @@ function CertificatesViewer({ certificates = CERTIFICADOS_MOCK }) {
 
       {safeCertificates.length === 0 ? (
         <div className="rounded-xl border border-amber-400/40 bg-amber-300/10 p-4 text-sm text-amber-100">
-          No hay certificados validos para mostrar.
+          No hay certificados válidos para mostrar.
         </div>
       ) : (
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">

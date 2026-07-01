@@ -4,7 +4,7 @@ const CHRONOSTREAM_DOCS_URL = `${import.meta.env.BASE_URL}docs/chronostream.html
 
 function jsEncryptData(input, key) {
   if (!key || key.length === 0) {
-    throw new Error('La clave no puede estar vacia.')
+    throw new Error('La clave no puede estar vacía.')
   }
 
   const encoder = new TextEncoder()
@@ -28,7 +28,7 @@ function jsEncryptData(input, key) {
 
 function jsDecryptData(inputBase64, key) {
   if (!key || key.length === 0) {
-    throw new Error('La clave no puede estar vacia.')
+    throw new Error('La clave no puede estar vacía.')
   }
 
   if (!inputBase64 || inputBase64.trim().length === 0) {
@@ -42,7 +42,7 @@ function jsDecryptData(inputBase64, key) {
   try {
     binary = atob(`${normalized}${padding}`)
   } catch {
-    throw new Error('El texto cifrado no es Base64 valido.')
+    throw new Error('El texto cifrado no es Base64 válido.')
   }
 
   const encryptedBytes = Uint8Array.from(binary, (char) => char.charCodeAt(0))
@@ -131,12 +131,12 @@ function WasmCryptor() {
     setErrorMessage('')
 
     if (status !== 'ready' || !wasmApiRef.current) {
-      setErrorMessage('El motor wasm aun no esta disponible.')
+      setErrorMessage('El motor wasm aún no está disponible.')
       return
     }
 
     if (!secretKey.trim()) {
-      setErrorMessage('Debes introducir una clave secreta valida.')
+      setErrorMessage('Debes introducir una clave secreta válida.')
       return
     }
 
@@ -176,7 +176,7 @@ function WasmCryptor() {
     setErrorMessage('')
 
     if (!secretKey.trim()) {
-      setErrorMessage('Debes introducir una clave secreta valida para descifrar.')
+      setErrorMessage('Debes introducir una clave secreta válida para descifrar.')
       return
     }
 
@@ -194,12 +194,12 @@ function WasmCryptor() {
     setE2eReport(null)
 
     if (status !== 'ready' || !wasmApiRef.current) {
-      setErrorMessage('El motor wasm aun no esta disponible para demo end-to-end.')
+      setErrorMessage('El motor wasm aún no está disponible para demo end-to-end.')
       return
     }
 
     if (!secretKey.trim()) {
-      setErrorMessage('Debes introducir una clave secreta valida.')
+      setErrorMessage('Debes introducir una clave secreta válida.')
       return
     }
 
@@ -248,7 +248,7 @@ function WasmCryptor() {
     setErrorMessage('')
 
     if (status !== 'ready' || !wasmApiRef.current) {
-      setErrorMessage('El motor wasm aun no esta disponible.')
+      setErrorMessage('El motor wasm aún no está disponible.')
       return
     }
 
@@ -287,12 +287,12 @@ function WasmCryptor() {
     setErrorMessage('')
 
     if (status !== 'ready' || !wasmApiRef.current) {
-      setErrorMessage('El motor wasm aun no esta disponible.')
+      setErrorMessage('El motor wasm aún no está disponible.')
       return
     }
 
     if (!secretKey.trim()) {
-      setErrorMessage('Debes introducir una clave secreta valida.')
+      setErrorMessage('Debes introducir una clave secreta válida.')
       return
     }
 
@@ -373,7 +373,7 @@ function WasmCryptor() {
       <header className="space-y-2">
         <h4 className="m-0 text-lg font-semibold text-slate-900">WasmCryptor | ChronoStream</h4>
         <p className="m-0 text-sm text-slate-600">
-          Cifrado simetrico compilado en Rust y ejecutado en WebAssembly local para demostrar
+          Cifrado simétrico compilado en Rust y ejecutado en WebAssembly local para demostrar
           rendimiento nativo dentro del navegador.
         </p>
         <button
@@ -381,7 +381,7 @@ function WasmCryptor() {
           onClick={() => window.open(CHRONOSTREAM_DOCS_URL, '_blank', 'noopener,noreferrer')}
           className="rounded-lg border border-emerald-300 bg-emerald-100 px-3 py-2 text-sm font-medium text-emerald-800 transition hover:bg-emerald-200"
         >
-          Abrir documentacion tecnica de ChronoStream
+          Abrir documentación técnica de ChronoStream
         </button>
         <div className={`rounded-lg border px-3 py-2 text-sm ${statusTone}`}>{statusMessage}</div>
       </header>
@@ -489,7 +489,7 @@ function WasmCryptor() {
             Hash de salida
           </p>
           <pre className="max-h-56 overflow-auto rounded-md border border-slate-200 bg-white p-3 text-xs text-slate-700">
-            {hashOutput || 'Sin salida de hash todavia.'}
+            {hashOutput || 'Sin salida de hash todavía.'}
           </pre>
           <button
             type="button"
@@ -504,7 +504,7 @@ function WasmCryptor() {
       {benchmark ? (
         <section className="space-y-3 rounded-lg border border-slate-200 bg-slate-50 p-4">
           <p className="m-0 text-xs font-semibold uppercase tracking-[0.12em] text-sky-600">
-            Mini grafica latencias (microsegundos)
+            Mini gráfica latencias (microsegundos)
           </p>
           <svg viewBox="0 0 620 220" className="h-56 w-full rounded-md border border-slate-200 bg-white">
             {(() => {
@@ -572,7 +572,7 @@ function WasmCryptor() {
             <div className="rounded-lg border border-slate-200 bg-white p-3">
               <p className="m-0 text-xs text-slate-500">Paso 2</p>
               <p className={`m-0 mt-1 text-sm font-semibold ${e2eReport.roundTripOk ? 'text-emerald-700' : 'text-rose-700'}`}>
-                {e2eReport.roundTripOk ? 'Round-trip OK' : 'Round-trip no valido'}
+                {e2eReport.roundTripOk ? 'Round-trip OK' : 'Round-trip no válido'}
               </p>
               <p className="m-0 mt-1 text-xs text-slate-500">{e2eReport.decryptMicros.toFixed(3)} us</p>
             </div>
@@ -598,7 +598,7 @@ function WasmCryptor() {
           Salida cifrada (Base64)
         </p>
         <pre className="max-h-56 overflow-auto rounded-md border border-slate-200 bg-white p-3 text-xs text-slate-700">
-          {encryptedWasm || 'Sin salida todavia.'}
+          {encryptedWasm || 'Sin salida todavía.'}
         </pre>
         <div className="flex flex-wrap gap-2">
           <button
@@ -637,7 +637,7 @@ function WasmCryptor() {
             Resultado descifrado
           </p>
           <pre className="max-h-56 overflow-auto rounded-md border border-slate-200 bg-white p-3 text-xs text-slate-700">
-            {decryptedText || 'Sin salida de descifrado todavia.'}
+            {decryptedText || 'Sin salida de descifrado todavía.'}
           </pre>
           <p className="m-0 text-xs text-slate-500">
             Round-trip OK:{' '}

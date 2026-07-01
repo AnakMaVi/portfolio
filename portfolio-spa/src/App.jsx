@@ -10,14 +10,14 @@ const RELEVANT_PHRASES = [
   'Full Stack',
   'Tech Lead',
   'PHP & Java Specialist',
-  'precision tecnica',
-  'vision de negocio',
+  'precisión técnica',
+  'visión de negocio',
   'rendimiento',
   'confiabilidad',
   'escalabilidad',
   'alta concurrencia',
   'Kanban',
-  'produccion',
+  'producción',
   '25%',
   '40%',
   '35%',
@@ -26,10 +26,10 @@ const RELEVANT_PHRASES = [
   'Web Workers',
   'Arduino',
   'Tech Lead en Creativa Digital 360',
-  'Ingenieria Informatica',
+  'Ingeniería Informática',
   'UOC',
-  'criterio de ingenieria',
-  'liderazgo tecnico',
+  'criterio de ingeniería',
+  'liderazgo técnico',
   'software de alto impacto'
 ]
 
@@ -125,7 +125,7 @@ function Navbar({ activeView, setActiveView, isMobileMenuOpen, setIsMobileMenuOp
           </span>
         </div>
 
-        <nav className="hidden items-center gap-2 md:flex" aria-label="Navegacion principal">
+        <nav className="hidden items-center gap-2 md:flex" aria-label="Navegación principal">
           {NAV_ITEMS.map((item) => {
             const isActive = activeView === item
             return (
@@ -155,7 +155,7 @@ function Navbar({ activeView, setActiveView, isMobileMenuOpen, setIsMobileMenuOp
           className="inline-flex items-center justify-center rounded-lg border border-slate-300 p-2 md:hidden"
           onClick={() => setIsMobileMenuOpen((prev) => !prev)}
           aria-expanded={isMobileMenuOpen}
-          aria-label="Abrir o cerrar menu"
+          aria-label="Abrir o cerrar menú"
         >
           <HamburgerIcon open={isMobileMenuOpen} />
         </button>
@@ -165,7 +165,7 @@ function Navbar({ activeView, setActiveView, isMobileMenuOpen, setIsMobileMenuOp
         {isMobileMenuOpen && (
           <motion.nav
             className="border-t border-slate-200 px-4 py-3 md:hidden"
-            aria-label="Navegacion movil"
+            aria-label="Navegación móvil"
             initial={{ opacity: 0, y: -8 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
@@ -309,7 +309,7 @@ function App() {
             <article className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
               <h3 className="m-0 text-base font-semibold text-slate-900">Enfoque Mobile-First</h3>
               <p className="mt-2 text-sm leading-relaxed text-slate-600">
-                Navegacion colapsable, targets tactiles consistentes y distribucion adaptable para pantallas pequenas y escritorio.
+                Navegación colapsable, targets táctiles consistentes y distribución adaptable para pantallas pequeñas y escritorio.
               </p>
             </article>
           </section>

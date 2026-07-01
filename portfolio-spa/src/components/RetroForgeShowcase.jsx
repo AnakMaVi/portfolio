@@ -10,7 +10,7 @@ function RetroForgeShowcase() {
         <p className="rf-kicker">Project 08 // RetroForge</p>
         <h3 id="rf-title">UI Kit Cyberpunk Neo-Brutalista</h3>
         <p>
-          Interfaz neo-futurista con base industrial, construida con HTML5 semantico y motion
+          Interfaz neo-futurista con base industrial, construida con HTML5 semántico y motion
           engine exclusivo de CSS nativo.
         </p>
       </header>
@@ -19,11 +19,11 @@ function RetroForgeShowcase() {
         <article className="rf-panel" role="listitem">
           <h4>Semantic Core</h4>
           <p>
-            Estructura HTML5 limpia con jerarquia clara para lectura por humanos, crawlers y
-            tecnologias asistivas.
+            Estructura HTML5 limpia con jerarquía clara para lectura por humanos, crawlers y
+            tecnologías asistivas.
           </p>
           <ul>
-            <li>Encabezados con orden logico</li>
+            <li>Encabezados con orden lógico</li>
             <li>Tarjetas y estados visuales escalables</li>
             <li>Tokens visuales centralizados por variables CSS</li>
           </ul>
@@ -33,9 +33,9 @@ function RetroForgeShowcase() {
           <h4>Motion Engine</h4>
           <p>
             Efectos de alto impacto controlados con <code>@property</code>, <code>@keyframes</code>{' '}
-            y blend cromatico sin inyeccion de JavaScript.
+            y blend cromático sin inyección de JavaScript.
           </p>
-          <div className="rf-chip-row" aria-label="Capacidades de animacion CSS">
+          <div className="rf-chip-row" aria-label="Capacidades de animación CSS">
             <span className="rf-chip">Glitch</span>
             <span className="rf-chip">Chromatic Shift</span>
             <span className="rf-chip">Neon Scanline</span>
@@ -43,7 +43,7 @@ function RetroForgeShowcase() {
         </article>
       </div>
 
-      <section className="rf-cta" aria-label="Boton de demostracion">
+      <section className="rf-cta" aria-label="Botón de demostración">
         <p>{isDeployed ? 'Prototype online // assets sincronizados' : 'Pulsa Deploy para activar el prototipo'}</p>
         <button
           type="button"

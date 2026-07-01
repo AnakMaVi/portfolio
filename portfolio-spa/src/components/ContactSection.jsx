@@ -67,11 +67,11 @@ function validateForm(form) {
   }
 
   if (form.nombre.trim().length < 3) {
-    errors.nombre = 'Introduce un nombre valido (minimo 3 caracteres).'
+    errors.nombre = 'Introduce un nombre válido (mínimo 3 caracteres).'
   }
 
   if (!EMAIL_REGEX.test(form.email.trim())) {
-    errors.email = 'Introduce un correo corporativo valido.'
+    errors.email = 'Introduce un correo corporativo válido.'
   }
 
   if (form.asunto.trim().length < 4) {
@@ -164,7 +164,7 @@ function ContactSection() {
     const responseBody = await response.json().catch(() => null)
 
     if (!response.ok || responseBody?.errors?.length) {
-      throw new Error('El servicio de correo devolvio un error.')
+      throw new Error('El servicio de correo devolvió un error.')
     }
   }
 
@@ -228,10 +228,10 @@ function ContactSection() {
       setStatus('error')
       setFeedbackMessage(
         hasSupabaseConfig
-          ? 'Error: no se pudo guardar el mensaje en Supabase. Revisa tabla, politicas y variables.'
+          ? 'Error: no se pudo guardar el mensaje en Supabase. Revisa tabla, políticas y variables.'
           : FORMSPREE_ENDPOINT
             ? 'Error: no se pudo enviar el correo. Intenta de nuevo en unos segundos.'
-            : 'Error de configuracion: define VITE_SUPABASE_URL y VITE_SUPABASE_ANON_KEY o VITE_FORMSPREE_ENDPOINT.'
+            : 'Error de configuración: define VITE_SUPABASE_URL y VITE_SUPABASE_ANON_KEY o VITE_FORMSPREE_ENDPOINT.'
       )
     } finally {
       requestControllerRef.current = null
@@ -245,7 +245,7 @@ function ContactSection() {
       <div className="mb-5">
         <h3 className="m-0 text-xl font-semibold text-slate-900">Contacto Profesional</h3>
         <p className="mt-2 text-sm text-slate-600">
-          Deja tu mensaje y coordinamos una conversacion tecnica enfocada en impacto de negocio.
+          Deja tu mensaje y coordinamos una conversación técnica enfocada en impacto de negocio.
         </p>
       </div>
 
@@ -318,7 +318,7 @@ function ContactSection() {
                 ? 'border-rose-400 focus:border-rose-500'
                 : 'border-slate-300 focus:border-sky-400'
             }`}
-            placeholder="Describe objetivo, alcance y contexto tecnico de la oportunidad..."
+            placeholder="Describe objetivo, alcance y contexto técnico de la oportunidad..."
           />
           {shouldShowError('mensaje') ? <p className="m-0 text-xs text-rose-600">{errors.mensaje}</p> : null}
         </label>

@@ -1,4 +1,26 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
+import {
+  SiChartdotjs,
+  SiCss,
+  SiDocker,
+  SiFastapi,
+  SiGithubactions,
+  SiHtml5,
+  SiJavascript,
+  SiLaravel,
+  SiApachemaven,
+  SiMysql,
+  SiPandas,
+  SiPhp,
+  SiPostgresql,
+  SiPython,
+  SiRedis,
+  SiRust,
+  SiSupabase,
+  SiWebassembly,
+  SiWebrtc
+} from 'react-icons/si'
+import { FaDatabase, FaJava } from 'react-icons/fa6'
 import RetroForgeShowcase from './RetroForgeShowcase.jsx'
 import WasmCryptor from './WasmCryptor.jsx'
 
@@ -31,13 +53,55 @@ const TASKPULSE_DOCS_URL = toAbsoluteHttpUrl(
   `${TASKPULSE_API_BASE}/docs/taskpulse`
 )
 
+const TECH_ICON_MAP = {
+  Python: SiPython,
+  FastAPI: SiFastapi,
+  CrewAI: SiSupabase,
+  Docker: SiDocker,
+  Rust: SiRust,
+  'wasm-pack': SiWebassembly,
+  'Web Workers': SiJavascript,
+  'Java 17': FaJava,
+  Maven: SiApachemaven,
+  Jackson: FaDatabase,
+  JUnit: FaDatabase,
+  'PHP 8.2': SiPhp,
+  PDO: FaDatabase,
+  MySQL: SiMysql,
+  'Laravel 11': SiLaravel,
+  Redis: SiRedis,
+  PostgreSQL: SiPostgresql,
+  Horizon: SiLaravel,
+  Pandas: SiPandas,
+  Regex: SiJavascript,
+  Webhooks: SiGithubactions,
+  JavaScript: SiJavascript,
+  WebSockets: SiWebrtc,
+  'Chart.js': SiChartdotjs,
+  HTML5: SiHtml5,
+  'CSS Grid': SiCss,
+  'CSS Keyframes': SiCss,
+  'Custom Properties': SiCss
+}
+
+function StackBadge({ tech }) {
+  const Icon = TECH_ICON_MAP[tech]
+
+  return (
+    <span className="inline-flex items-center gap-1.5 rounded-full border border-slate-300 bg-white px-2.5 py-1 text-[11px] font-medium text-slate-700">
+      {Icon ? <Icon className="h-3.5 w-3.5 text-sky-600" aria-hidden="true" /> : null}
+      {tech}
+    </span>
+  )
+}
+
 const PROJECTS_MOCK = [
   {
     id: 'aegismind',
     title: 'AegisMind',
-    subtitle: 'Sistema Agentico de Ciberseguridad',
+    subtitle: 'Sistema Agéntico de Ciberseguridad',
     summary:
-      'Orquestacion de agentes de IA para analisis de codigo vulnerable, investigacion CVE y propuesta de parches.',
+      'Orquestación de agentes de IA para análisis de código vulnerable, investigación CVE y propuesta de parches.',
     categories: ['IA', 'Backend', 'DevOps'],
     stack: ['Python', 'FastAPI', 'CrewAI', 'Docker'],
     metricsHours: 26,
@@ -46,9 +110,9 @@ const PROJECTS_MOCK = [
   {
     id: 'chronostream',
     title: 'ChronoStream',
-    subtitle: 'Motor Core de Criptografia',
+    subtitle: 'Motor Core de Criptografía',
     summary:
-      'Modulo criptografico en Rust compilado a WebAssembly para ejecutar cifrado y hashing directamente en navegador.',
+      'Módulo criptográfico en Rust compilado a WebAssembly para ejecutar cifrado y hashing directamente en navegador.',
     categories: ['WebAssembly', 'Frontend', 'Performance'],
     stack: ['Rust', 'wasm-pack', 'Web Workers'],
     metricsHours: 22,
@@ -59,7 +123,7 @@ const PROJECTS_MOCK = [
     title: 'NeuralCore',
     subtitle: 'Enrutador Concurrente',
     summary:
-      'Procesamiento paralelo de payloads con ThreadPoolExecutor y CompletableFuture bajo limites de memoria controlados.',
+      'Procesamiento paralelo de payloads con ThreadPoolExecutor y CompletableFuture bajo límites de memoria controlados.',
     categories: ['Backend', 'Concurrency'],
     stack: ['Java 17', 'Maven', 'Jackson', 'JUnit'],
     metricsHours: 20,
@@ -70,7 +134,7 @@ const PROJECTS_MOCK = [
     title: 'CustomMVC',
     subtitle: 'Micro-Framework Estructural',
     summary:
-      'Framework MVC en PHP puro con enrutado por expresiones regulares e inyeccion de dependencias por Reflection.',
+      'Framework MVC en PHP puro con enrutado por expresiones regulares e inyección de dependencias por Reflection.',
     categories: ['Backend', 'Arquitectura'],
     stack: ['PHP 8.2', 'PDO', 'MySQL'],
     metricsHours: 18,
@@ -79,9 +143,9 @@ const PROJECTS_MOCK = [
   {
     id: 'taskpulse',
     title: 'SaaS TaskPulse',
-    subtitle: 'Automatizacion Kanban',
+    subtitle: 'Automatización Kanban',
     summary:
-      'Jobs asincronos con Redis para calculo de metricas de sprint y analitica de productividad en entornos SaaS.',
+      'Migración completa de un backend Laravel a una arquitectura híbrida: API en Render + frontend estático en GitHub Pages. Incluye rediseño de rutas, hardening de endpoints, validaciones anti-404, Dockerización de web/worker, APP_KEY compartida, seed y recálculo de métricas para exponer analítica de sprint en producción.',
     categories: ['Backend', 'DevOps'],
     stack: ['Laravel 11', 'Redis', 'PostgreSQL', 'Horizon'],
     metricsHours: 22,
@@ -92,7 +156,7 @@ const PROJECTS_MOCK = [
     title: 'PyInsight',
     subtitle: 'Analizador de Logs en Streaming',
     summary:
-      'Lectura incremental con generadores y analitica heuristica para disparo de alertas de infraestructura.',
+      'Lectura incremental con generadores y analítica heurística para disparo de alertas de infraestructura.',
     categories: ['Data', 'Backend', 'Performance'],
     stack: ['Python', 'Pandas', 'Regex', 'Webhooks'],
     metricsHours: 16,
@@ -103,7 +167,7 @@ const PROJECTS_MOCK = [
     title: 'CryptoWatch',
     subtitle: 'Dashboard Financiero en Tiempo Real',
     summary:
-      'Cliente WebSocket resiliente con reconexion exponencial y render en tiempo real con control de memoria.',
+      'Cliente WebSocket resiliente con reconexión exponencial y render en tiempo real con control de memoria.',
     categories: ['Frontend', 'Realtime', 'Performance'],
     stack: ['JavaScript', 'WebSockets', 'Chart.js'],
     metricsHours: 14,
@@ -114,7 +178,7 @@ const PROJECTS_MOCK = [
     title: 'RetroForge',
     subtitle: 'UI Kit Cyberpunk Neo-Brutalista',
     summary:
-      'Libreria de componentes responsivos con identidad industrial y animaciones complejas ejecutadas por CSS nativo.',
+      'Librería de componentes responsivos con identidad industrial y animaciones complejas ejecutadas por CSS nativo.',
     categories: ['Frontend', 'Design System', 'CSS'],
     stack: ['HTML5', 'CSS Grid', 'CSS Keyframes', 'Custom Properties'],
     metricsHours: 12,
@@ -125,27 +189,27 @@ const PROJECTS_MOCK = [
 function GenericProjectDetail({ project }) {
   return (
     <article className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
-      <h4 className="m-0 text-lg font-semibold text-slate-900">Resumen Tecnico</h4>
+      <h4 className="m-0 text-lg font-semibold text-slate-900">Resumen técnico</h4>
       <p className="mt-2 text-sm leading-relaxed text-slate-600">{project.summary}</p>
 
       {project.implementationStatus === 'pending' ? (
         <p className="mt-3 rounded-lg border border-amber-300 bg-amber-50 px-3 py-2 text-xs font-medium text-amber-800">
-          Proyecto en fase de definicion: aun no hay logica asociada en esta demo.
+          Proyecto en fase de definición: aún no hay lógica asociada en esta demo.
         </p>
       ) : null}
 
       <div className="mt-4 grid gap-4 sm:grid-cols-2">
         <div className="rounded-lg border border-slate-200 bg-slate-50 p-4">
-          <p className="m-0 text-xs uppercase tracking-[0.14em] text-sky-600">Stack</p>
-          <ul className="mt-2 list-disc space-y-1 pl-4 text-sm text-slate-700">
+          <p className="m-0 text-xs uppercase tracking-[0.14em] text-sky-600">Stack técnico</p>
+          <div className="mt-2 flex flex-wrap gap-2">
             {project.stack.map((item) => (
-              <li key={`${project.id}-${item}`}>{item}</li>
+              <StackBadge key={`${project.id}-${item}`} tech={item} />
             ))}
-          </ul>
+          </div>
         </div>
 
         <div className="rounded-lg border border-slate-200 bg-slate-50 p-4">
-          <p className="m-0 text-xs uppercase tracking-[0.14em] text-sky-600">Categorias</p>
+          <p className="m-0 text-xs uppercase tracking-[0.14em] text-sky-600">Categorías</p>
           <div className="mt-2 flex flex-wrap gap-2">
             {project.categories.map((category) => (
               <span
@@ -209,12 +273,19 @@ function TaskPulseDetail({ project }) {
 
       <div className="grid gap-4 sm:grid-cols-2">
         <div className="rounded-lg border border-slate-200 bg-slate-50 p-4">
-          <p className="m-0 text-xs uppercase tracking-[0.14em] text-sky-600">Stack</p>
-          <ul className="mt-2 list-disc space-y-1 pl-4 text-sm text-slate-700">
+          <p className="m-0 text-xs uppercase tracking-[0.14em] text-sky-600">Stack técnico</p>
+          <div className="mt-2 flex flex-wrap gap-2">
             {project.stack.map((item) => (
-              <li key={`taskpulse-${item}`}>{item}</li>
+              <StackBadge key={`taskpulse-${item}`} tech={item} />
             ))}
-          </ul>
+          </div>
+
+          <p className="mt-3 text-xs leading-relaxed text-slate-600">
+            Este proyecto implicó separar la solución en dos planos de despliegue para poder convivir
+            con GitHub Pages: el frontend Vite se publica como estático en Pages y Laravel se expone
+            como API/documentación en Render. Se reforzaron rutas, variables de entorno y arranque con
+            contenedores para garantizar estabilidad real de producción.
+          </p>
         </div>
 
         <div className="rounded-lg border border-slate-200 bg-slate-50 p-4">
@@ -244,12 +315,12 @@ function TaskPulseDetail({ project }) {
               onClick={() => window.open(TASKPULSE_DOCS_URL, '_blank', 'noopener,noreferrer')}
               className="w-full rounded-lg border border-emerald-300 bg-emerald-100 px-3 py-2 text-left text-sm font-medium text-emerald-800 transition hover:bg-emerald-200"
             >
-              Ver documentacion detallada TaskPulse
+              Ver documentación detallada TaskPulse
             </button>
           </div>
 
           <p className="mt-3 break-all text-xs text-slate-500">Base API: {TASKPULSE_API_BASE}</p>
-          <p className="mt-1 break-all text-xs text-slate-500">Documentacion: {TASKPULSE_DOCS_URL}</p>
+          <p className="mt-1 break-all text-xs text-slate-500">Documentación: {TASKPULSE_DOCS_URL}</p>
         </div>
       </div>
 
@@ -259,7 +330,7 @@ function TaskPulseDetail({ project }) {
           <p className="mt-2 text-sm text-slate-700">
             Status:{' '}
             <strong className={apiResult.ok ? 'text-emerald-700' : 'text-rose-700'}>
-              {apiResult.status ?? 'sin codigo'}
+              {apiResult.status ?? 'sin código'}
             </strong>
           </p>
           <pre className="mt-2 max-h-60 overflow-auto rounded-md border border-slate-200 bg-white p-3 text-xs text-slate-700">
@@ -284,9 +355,7 @@ function ChronoStreamDetail({ project }) {
   const [encryptKey, setEncryptKey] = useState('clave-demo-chronostream-2026')
   const [encryptedOutput, setEncryptedOutput] = useState('')
 
-  const [hashInput, setHashInput] = useState(
-    'Bloque de datos para firma SHA-256\n'.repeat(2000)
-  )
+  const [hashInput, setHashInput] = useState('Bloque de datos para firma SHA-256\n'.repeat(2000))
   const [hashOutput, setHashOutput] = useState('')
   const [hashTimeMs, setHashTimeMs] = useState(null)
 
@@ -380,7 +449,7 @@ function ChronoStreamDetail({ project }) {
 
       <div className="grid gap-4 lg:grid-cols-2">
         <section className="space-y-2 rounded-lg border border-slate-200 bg-slate-50 p-4">
-          <p className="m-0 text-xs uppercase tracking-[0.14em] text-sky-600">Cifrado simetrico</p>
+          <p className="m-0 text-xs uppercase tracking-[0.14em] text-sky-600">Cifrado simétrico</p>
 
           <label className="space-y-1">
             <span className="text-xs text-slate-600">Payload</span>
@@ -412,7 +481,7 @@ function ChronoStreamDetail({ project }) {
           </button>
 
           <pre className="max-h-48 overflow-auto rounded-md border border-slate-200 bg-white p-3 text-xs text-slate-700">
-            {encryptedOutput || 'Sin salida todavia.'}
+            {encryptedOutput || 'Sin salida todavía.'}
           </pre>
         </section>
 
@@ -439,11 +508,11 @@ function ChronoStreamDetail({ project }) {
           </button>
 
           <p className="m-0 text-xs text-slate-500">
-            Tiempo de calculo: {hashTimeMs !== null ? `${hashTimeMs} ms` : 'sin medicion'}
+            Tiempo de cálculo: {hashTimeMs !== null ? `${hashTimeMs} ms` : 'sin medición'}
           </p>
 
           <pre className="max-h-48 overflow-auto rounded-md border border-slate-200 bg-white p-3 text-xs text-slate-700">
-            {hashOutput || 'Sin salida todavia.'}
+            {hashOutput || 'Sin salida todavía.'}
           </pre>
         </section>
       </div>
@@ -523,7 +592,7 @@ function ProjectsExplorer() {
           </p>
         </div>
 
-        <div className="mt-3 flex flex-wrap gap-2" aria-label="Filtros por categoria">
+        <div className="mt-3 flex flex-wrap gap-2" aria-label="Filtros por categoría">
           {categories.map((category) => {
             const isActive = activeCategory === category
             return (
@@ -562,7 +631,7 @@ function ProjectsExplorer() {
               onClick={() => setSelectedProjectId(null)}
               className="rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-700 transition hover:border-sky-400"
             >
-              Volver al catalogo
+              Volver al catálogo
             </button>
           </div>
 
@@ -602,6 +671,12 @@ function ProjectsExplorer() {
             <p className="m-0 mt-1 text-sm text-slate-600">{project.subtitle}</p>
             <p className="m-0 mt-3 text-sm leading-relaxed text-slate-500">{project.summary}</p>
 
+            <div className="mt-3 flex flex-wrap gap-2">
+              {project.stack.map((tech) => (
+                <StackBadge key={`${project.id}-card-${tech}`} tech={tech} />
+              ))}
+            </div>
+
             <div className="mt-4 flex flex-wrap gap-2">
               {project.categories.map((category) => (
                 <span
@@ -618,7 +693,7 @@ function ProjectsExplorer() {
 
       {filteredProjects.length === 0 ? (
         <div className="rounded-xl border border-amber-300 bg-amber-50 p-4 text-sm text-amber-800">
-          No hay proyectos con ese filtro. Prueba otra categoria o termino de busqueda.
+          No hay proyectos con ese filtro. Prueba otra categoría o término de búsqueda.
         </div>
       ) : null}
     </section>
