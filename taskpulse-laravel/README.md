@@ -107,6 +107,18 @@ RENDER_TASKPULSE_WEB_DEPLOY_HOOK_URL
 RENDER_TASKPULSE_WORKER_DEPLOY_HOOK_URL (optional but recommended)
 ```
 
+Required Render env var (both web and worker):
+
+```text
+APP_KEY=base64:... (same exact value in both services)
+```
+
+Generate one key locally (PowerShell):
+
+```powershell
+php -r "echo 'base64:'.base64_encode(random_bytes(32)).PHP_EOL;"
+```
+
 How to get deploy hooks in Render:
 
 1. Open your Render service (`taskpulse-api`) > Settings > Deploy Hook > Create hook.

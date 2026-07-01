@@ -1,5 +1,9 @@
 #!/bin/sh
 set -eu
 
-php artisan key:generate --force
-php artisan horizon
+if [ -z "${APP_KEY:-}" ]; then
+	echo "ERROR: APP_KEY no definido. Configuralo en Render para web y worker."
+	exit 1
+fi
+
+exec php artisan horizon

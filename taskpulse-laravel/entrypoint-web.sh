@@ -1,6 +1,10 @@
 #!/bin/sh
 set -eu
 
-php artisan key:generate --force
+if [ -z "${APP_KEY:-}" ]; then
+	echo "ERROR: APP_KEY no definido. Configuralo en Render para web y worker."
+	exit 1
+fi
+
 php artisan migrate --force
-php artisan serve --host=0.0.0.0 --port="${PORT:-8000}"
+exec php artisan serve --host=0.0.0.0 --port="${PORT:-8000}"
