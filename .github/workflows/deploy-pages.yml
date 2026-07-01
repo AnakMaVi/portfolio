@@ -28,23 +28,23 @@ jobs:
         with:
           node-version: 22
           cache: npm
-          cache-dependency-path: /home/runner/work/portfolio/portfolio/portfolio-spa/package-lock.json
+          cache-dependency-path: portfolio-spa/package-lock.json
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
       - name: Install dependencies
-        working-directory: /home/runner/work/portfolio/portfolio/portfolio-spa
+        working-directory: portfolio-spa
         run: npm ci
 
       - name: Build site
-        working-directory: /home/runner/work/portfolio/portfolio/portfolio-spa
+        working-directory: portfolio-spa
         run: npm run build
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: /home/runner/work/portfolio/portfolio/portfolio-spa/dist
+          path: portfolio-spa/dist
 
   deploy:
     environment:
