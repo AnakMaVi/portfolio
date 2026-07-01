@@ -3,11 +3,33 @@ import RetroForgeShowcase from './RetroForgeShowcase.jsx'
 import WasmCryptor from './WasmCryptor.jsx'
 
 const DEFAULT_TASKPULSE_API_BASE = 'https://taskpulse-api-dxz8.onrender.com'
-const TASKPULSE_API_BASE = (
-  import.meta.env.VITE_TASKPULSE_API_BASE ?? DEFAULT_TASKPULSE_API_BASE
-).replace(/\/+$/, '')
-const TASKPULSE_DOCS_URL =
-  import.meta.env.VITE_TASKPULSE_DOCS_URL ?? `${TASKPULSE_API_BASE}/docs/taskpulse`
+
+function toAbsoluteHttpUrl(rawValue, fallbackValue) {
+  const candidate = String(rawValue ?? '').trim()
+  const fallback = String(fallbackValue ?? '').trim()
+
+  if (!candidate) {
+    return fallback
+  }
+
+  const withProtocol = /^https?:\/\//i.test(candidate) ? candidate : `https://${candidate}`
+
+  try {
+    return new URL(withProtocol).toString().replace(/\/+$/, '')
+  } catch {
+    return fallback
+  }
+}
+
+const TASKPULSE_API_BASE = toAbsoluteHttpUrl(
+  import.meta.env.VITE_TASKPULSE_API_BASE,
+  DEFAULT_TASKPULSE_API_BASE
+)
+
+const TASKPULSE_DOCS_URL = toAbsoluteHttpUrl(
+  import.meta.env.VITE_TASKPULSE_DOCS_URL,
+  `${TASKPULSE_API_BASE}/docs/taskpulse`
+)
 
 const PROJECTS_MOCK = [
   {
