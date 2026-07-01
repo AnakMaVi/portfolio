@@ -175,10 +175,10 @@ const PROJECTS_MOCK = [
   },
   {
     id: 'retroforge',
-    title: 'RetroForge',
-    subtitle: 'UI Kit Cyberpunk Neo-Brutalista',
+    title: 'GlassForge',
+    subtitle: 'UI Kit Glassmorphism Corporativo',
     summary:
-      'Librería de componentes responsivos con identidad industrial y animaciones complejas ejecutadas por CSS nativo.',
+      'Sistema visual basado en Glassmorphism para interfaces B2B: superficies translúcidas, jerarquía limpia y microinteracciones suaves con CSS moderno.',
     categories: ['Frontend', 'Design System', 'CSS'],
     stack: ['HTML5', 'CSS Grid', 'CSS Keyframes', 'Custom Properties'],
     metricsHours: 12,

@@ -1,103 +1,101 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
 import './RetroForgeShowcase.css'
 
 function RetroForgeShowcase() {
-  const [isDeployed, setIsDeployed] = useState(false)
+  const [isLive, setIsLive] = useState(false)
 
   return (
     <section className="rf-kit" aria-labelledby="rf-title">
       <header className="rf-head">
-        <p className="rf-kicker">Project 08 // RetroForge</p>
-        <h3 id="rf-title">UI Kit Cyberpunk Neo-Brutalista</h3>
+        <p className="rf-kicker">Proyecto 08 // GlassForge</p>
+        <h3 id="rf-title">UI Kit Glassmorphism Corporativo</h3>
         <p>
-          Interfaz neo-futurista con base industrial, construida con HTML5 semántico y motion
-          engine exclusivo de CSS nativo.
+          Composición visual orientada a producto: capas translúcidas, desenfoque de fondo,
+          bordes suaves y contraste controlado para dashboards profesionales.
         </p>
       </header>
 
-      <div className="rf-grid" role="list" aria-label="Bloques del kit de interfaz">
+      <div className="rf-grid" role="list" aria-label="Bloques del kit de interfaz glassmorphism">
         <article className="rf-panel" role="listitem">
-          <h4>Semantic Core</h4>
+          <h4>Glass Surface System</h4>
           <p>
-            Estructura HTML5 limpia con jerarquía clara para lectura por humanos, crawlers y
-            tecnologías asistivas.
+            Superficies semitransparentes con <code>backdrop-filter</code>, sombras blandas y
+            jerarquía de elevación para separar contenido sin perder ligereza.
           </p>
           <ul>
-            <li>Encabezados con orden lógico</li>
-            <li>Tarjetas y estados visuales escalables</li>
-            <li>Tokens visuales centralizados por variables CSS</li>
+            <li>Capas translúcidas con borde luminoso sutil</li>
+            <li>Contraste optimizado para lectura en tema claro</li>
+            <li>Tokens de color reutilizables por componente</li>
           </ul>
         </article>
 
         <article className="rf-panel" role="listitem">
-          <h4>Motion Engine</h4>
+          <h4>Interaction Layer</h4>
           <p>
-            Efectos de alto impacto controlados con <code>@property</code>, <code>@keyframes</code>{' '}
-            y blend cromático sin inyección de JavaScript.
+            Microinteracciones de bajo ruido visual: hover con profundidad, foco accesible y
+            transiciones suaves para mantener sensación premium.
           </p>
-          <div className="rf-chip-row" aria-label="Capacidades de animación CSS">
-            <span className="rf-chip">Glitch</span>
-            <span className="rf-chip">Chromatic Shift</span>
-            <span className="rf-chip">Neon Scanline</span>
+          <div className="rf-chip-row" aria-label="Capacidades del sistema glassmorphism">
+            <span className="rf-chip">Frosted Cards</span>
+            <span className="rf-chip">Soft Shadows</span>
+            <span className="rf-chip">Depth Hover</span>
           </div>
         </article>
       </div>
 
-      <section className="rf-cta" aria-label="Botón de demostración">
-        <p>{isDeployed ? 'Prototype online // assets sincronizados' : 'Pulsa Deploy para activar el prototipo'}</p>
+      <section className="rf-cta" aria-label="Activación de demo glassmorphism">
+        <p>{isLive ? 'Demo activa: preset glass aplicado.' : 'Activa la demo para ver estados glass en vivo.'}</p>
         <button
           type="button"
-          className={`rf-glitch-btn ${isDeployed ? 'rf-glitch-btn--deployed' : ''}`}
-          data-text={isDeployed ? 'Prototype Online' : 'Deploy Prototype'}
-          aria-label={isDeployed ? 'Prototype Online' : 'Deploy Prototype'}
-          aria-pressed={isDeployed}
-          onClick={() => setIsDeployed((prev) => !prev)}
+          className={`rf-glass-btn ${isLive ? 'rf-glass-btn--active' : ''}`}
+          aria-pressed={isLive}
+          onClick={() => setIsLive((prev) => !prev)}
         >
-          <span>{isDeployed ? 'Prototype Online' : 'Deploy Prototype'}</span>
+          {isLive ? 'Desactivar Demo' : 'Activar Demo'}
         </button>
       </section>
 
       <section
-        className={`rf-mini-kit ${isDeployed ? 'rf-mini-kit--active' : ''}`}
+        className={`rf-mini-kit ${isLive ? 'rf-mini-kit--active' : ''}`}
         aria-labelledby="rf-mini-kit-title"
       >
         <header className="rf-mini-kit-head">
-          <h4 id="rf-mini-kit-title">Mini UI Kit</h4>
-          <p>Primitivas visuales para construir dashboards y landing pages de alto impacto.</p>
+          <h4 id="rf-mini-kit-title">Mini UI Kit Glass</h4>
+          <p>Primitivas listas para paneles de analítica, CRM y vistas operativas corporativas.</p>
         </header>
 
-        <div className="rf-mini-grid" role="list" aria-label="Componentes del mini kit">
+        <div className="rf-mini-grid" role="list" aria-label="Componentes del mini kit glass">
           <article className="rf-mini-item" role="listitem">
             <p className="rf-mini-label">Badge</p>
-            <span className="rf-pill">Stable Build</span>
+            <span className="rf-pill">Build Estable</span>
           </article>
 
           <article className="rf-mini-item" role="listitem">
             <p className="rf-mini-label">Input</p>
             <label className="rf-input-wrap">
-              <span className="rf-sr-only">Tracking ID field</span>
-              <input type="text" placeholder="Tracking ID" aria-label="Tracking ID" />
+              <span className="rf-sr-only">Campo de búsqueda de proyecto</span>
+              <input type="text" placeholder="Buscar proyecto..." aria-label="Buscar proyecto" />
             </label>
           </article>
 
           <article className="rf-mini-item" role="listitem">
             <p className="rf-mini-label">Action Button</p>
             <button type="button" className="rf-btn-secondary">
-              Sync Assets
+              Exportar Panel
             </button>
           </article>
 
           <article className="rf-mini-item" role="listitem">
             <p className="rf-mini-label">Status Card</p>
             <div className="rf-card">
-              <strong>Render Pipeline</strong>
-              <span>42ms · GPU Stable</span>
+              <strong>Pipeline Operativo</strong>
+              <span>Sync OK · 48 ms</span>
             </div>
           </article>
 
           <article className="rf-mini-item" role="listitem">
             <p className="rf-mini-label">Alert Strip</p>
-            <div className="rf-alert">Warning: heatmap stream in diagnostic mode</div>
+            <div className="rf-alert">Recordatorio: revisión funcional pendiente de QA.</div>
           </article>
 
           <article className="rf-mini-item" role="listitem">
@@ -105,20 +103,20 @@ function RetroForgeShowcase() {
             <label className="rf-switch-wrap">
               <input type="checkbox" defaultChecked />
               <span className="rf-switch" aria-hidden="true" />
-              <span className="rf-switch-text">Neon grid enabled</span>
+              <span className="rf-switch-text">Modo cristal reforzado</span>
             </label>
           </article>
         </div>
 
-        <article className="rf-terminal" aria-label="Consola de estado">
+        <article className="rf-terminal" aria-label="Consola de estado visual">
           <p>
-            <span>{'>'}</span> loading component tokens...
+            <span>{'>'}</span> loading glass tokens...
           </p>
           <p>
-            <span>{'>'}</span> injecting accessibility presets...
+            <span>{'>'}</span> applying blur layers...
           </p>
           <p>
-            <span>{'>'}</span> retroforge/ui: {isDeployed ? 'online' : 'standby'}
+            <span>{'>'}</span> glassforge/ui: {isLive ? 'active' : 'standby'}
           </p>
         </article>
       </section>

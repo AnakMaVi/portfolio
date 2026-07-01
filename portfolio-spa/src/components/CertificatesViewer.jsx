@@ -148,15 +148,6 @@ export const CERTIFICADOS_MOCK = [
     tags: ['Inglés', 'B1', 'Certificación'],
     thumbnailUrl: tituloAsset('Certificado superación B1.jpg'),
     fullImageUrl: tituloAsset('Certificado superación B1.jpg')
-  },
-  {
-    id: 'cert-17',
-    titulo: 'Ampliar objetos de tabla y página existentes en Dynamics 365 Business Central',
-    entidadEmisora: 'Microsoft',
-    anioEmision: 2024,
-    tags: ['Dynamics 365', 'AL', 'Tablas y páginas'],
-    thumbnailUrl: tituloAsset('Ampliar objetos de tabla y página existentes en Dynamics 365 Business Central.jpg'),
-    fullImageUrl: tituloAsset('Ampliar objetos de tabla y página existentes en Dynamics 365 Business Central.jpg')
   }
 ]
 
@@ -273,12 +264,12 @@ function CertificatesViewer({ certificates = CERTIFICADOS_MOCK }) {
     <section className="space-y-5" aria-label="Visor de certificados">
       <div className="flex items-end justify-between gap-4">
         <div>
-          <h3 className="m-0 text-xl font-semibold text-slate-100">Certificados técnicos</h3>
-          <p className="mt-1 text-sm text-slate-300">
+          <h3 className="m-0 text-xl font-semibold text-slate-900">Certificados técnicos</h3>
+          <p className="mt-1 text-sm text-slate-600">
             Colección profesional con metadatos y tags tecnológicos.
           </p>
         </div>
-        <span className="rounded-full border border-cyan-400/40 bg-cyan-500/10 px-3 py-1 text-xs font-semibold text-cyan-200">
+        <span className="rounded-full border border-sky-300 bg-sky-50 px-3 py-1 text-xs font-semibold text-sky-700">
           {safeCertificates.length} items
         </span>
       </div>

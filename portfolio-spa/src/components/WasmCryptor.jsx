@@ -297,21 +297,26 @@ function WasmCryptor() {
     }
 
     const iterations = 100
+    const opsPerSample = 50
     const wasmTimes = []
     const jsTimes = []
 
     try {
       for (let i = 0; i < iterations; i += 1) {
         const wasmStart = performance.now()
-        wasmApiRef.current.encrypt_data(inputText, secretKey)
+        for (let j = 0; j < opsPerSample; j += 1) {
+          wasmApiRef.current.encrypt_data(inputText, secretKey)
+        }
         const wasmEnd = performance.now()
 
         const jsStart = performance.now()
-        jsEncryptData(inputText, secretKey)
+        for (let j = 0; j < opsPerSample; j += 1) {
+          jsEncryptData(inputText, secretKey)
+        }
         const jsEnd = performance.now()
 
-        wasmTimes.push((wasmEnd - wasmStart) * 1000)
-        jsTimes.push((jsEnd - jsStart) * 1000)
+        wasmTimes.push(((wasmEnd - wasmStart) * 1000) / opsPerSample)
+        jsTimes.push(((jsEnd - jsStart) * 1000) / opsPerSample)
       }
 
       const wasmP50 = calculatePercentile(wasmTimes, 0.5)
@@ -321,13 +326,19 @@ function WasmCryptor() {
 
       setBenchmark({
         iterations,
+        opsPerSample,
         wasmP50,
         wasmP95,
         jsP50,
         jsP95,
         speedupP50: wasmP50 > 0 ? jsP50 / wasmP50 : null,
-        speedupP95: wasmP95 > 0 ? jsP95 / wasmP95 : null
+        speedupP95: wasmP95 > 0 ? jsP95 / wasmP95 : null,
+        executedAt: new Date().toLocaleTimeString('es-ES')
       })
+
+      setWasmMicros(wasmP50)
+      setJsMicros(jsP50)
+      setSpeedup(wasmP50 > 0 ? jsP50 / wasmP50 : null)
     } catch (error) {
       setBenchmark(null)
       setErrorMessage(error instanceof Error ? error.message : 'Error durante benchmark.')
@@ -368,6 +379,22 @@ function WasmCryptor() {
         ? 'border-rose-300 bg-rose-50 text-rose-700'
         : 'border-amber-300 bg-amber-50 text-amber-700'
 
+  const engineIndicator =
+    status === 'ready'
+      ? {
+          label: 'Motor activo: WASM',
+          tone: 'border-emerald-300 bg-emerald-50 text-emerald-700'
+        }
+      : status === 'error'
+        ? {
+            label: 'Motor activo: Fallback',
+            tone: 'border-rose-300 bg-rose-50 text-rose-700'
+          }
+        : {
+            label: 'Motor activo: Inicializando',
+            tone: 'border-amber-300 bg-amber-50 text-amber-700'
+          }
+
   return (
     <section className="space-y-4 rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
       <header className="space-y-2">
@@ -383,6 +410,9 @@ function WasmCryptor() {
         >
           Abrir documentación técnica de ChronoStream
         </button>
+        <div className={`inline-flex w-fit rounded-full border px-3 py-1 text-xs font-semibold ${engineIndicator.tone}`}>
+          {engineIndicator.label}
+        </div>
         <div className={`rounded-lg border px-3 py-2 text-sm ${statusTone}`}>{statusMessage}</div>
       </header>
 
@@ -505,6 +535,9 @@ function WasmCryptor() {
         <section className="space-y-3 rounded-lg border border-slate-200 bg-slate-50 p-4">
           <p className="m-0 text-xs font-semibold uppercase tracking-[0.12em] text-sky-600">
             Mini gráfica latencias (microsegundos)
+          </p>
+          <p className="m-0 text-xs text-slate-500">
+            Última ejecución: {benchmark.executedAt} · {benchmark.iterations} muestras · {benchmark.opsPerSample} operaciones por muestra.
           </p>
           <svg viewBox="0 0 620 220" className="h-56 w-full rounded-md border border-slate-200 bg-white">
             {(() => {
