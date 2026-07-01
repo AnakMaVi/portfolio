@@ -2,10 +2,12 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import RetroForgeShowcase from './RetroForgeShowcase.jsx'
 import WasmCryptor from './WasmCryptor.jsx'
 
-const TASKPULSE_API_BASE =
-  import.meta.env.VITE_TASKPULSE_API_BASE ?? 'https://taskpulse-api-dxz8.onrender.com'
+const DEFAULT_TASKPULSE_API_BASE = 'https://taskpulse-api-dxz8.onrender.com'
+const TASKPULSE_API_BASE = (
+  import.meta.env.VITE_TASKPULSE_API_BASE ?? DEFAULT_TASKPULSE_API_BASE
+).replace(/\/+$/, '')
 const TASKPULSE_DOCS_URL =
-  import.meta.env.VITE_TASKPULSE_DOCS_URL ?? 'http://127.0.0.1:8000/docs/taskpulse'
+  import.meta.env.VITE_TASKPULSE_DOCS_URL ?? `${TASKPULSE_API_BASE}/docs/taskpulse`
 
 const PROJECTS_MOCK = [
   {
