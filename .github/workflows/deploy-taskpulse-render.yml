@@ -1,0 +1,33 @@
+name: Deploy TaskPulse to Render
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'taskpulse-laravel/**'
+      - '.github/workflows/deploy-taskpulse-render.yml'
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Render deploy (web)
+        env:
+          RENDER_DEPLOY_HOOK_URL: ${{ secrets.RENDER_TASKPULSE_WEB_DEPLOY_HOOK_URL }}
+        run: |
+          if [ -z "$RENDER_DEPLOY_HOOK_URL" ]; then
+            echo "Missing secret: RENDER_TASKPULSE_WEB_DEPLOY_HOOK_URL"
+            exit 1
+          fi
+          curl -fsS -X POST "$RENDER_DEPLOY_HOOK_URL"
+
+      - name: Trigger Render deploy (worker)
+        env:
+          RENDER_WORKER_DEPLOY_HOOK_URL: ${{ secrets.RENDER_TASKPULSE_WORKER_DEPLOY_HOOK_URL }}
+        run: |
+          if [ -z "$RENDER_WORKER_DEPLOY_HOOK_URL" ]; then
+            echo "Worker hook secret not set; skipping worker trigger."
+            exit 0
+          fi
+          curl -fsS -X POST "$RENDER_WORKER_DEPLOY_HOOK_URL"

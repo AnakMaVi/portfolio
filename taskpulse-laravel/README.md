@@ -95,6 +95,40 @@ A `render.yaml` blueprint is included:
 
 Deploy with Render Blueprint to run API + queue worker online.
 
+### Render + GitHub Actions (auto-deploy)
+
+This repository includes a workflow at `.github/workflows/deploy-taskpulse-render.yml`.
+It triggers Render deploy hooks when there are changes under `taskpulse-laravel/**`.
+
+Required GitHub repository secrets:
+
+```text
+RENDER_TASKPULSE_WEB_DEPLOY_HOOK_URL
+RENDER_TASKPULSE_WORKER_DEPLOY_HOOK_URL (optional but recommended)
+```
+
+How to get deploy hooks in Render:
+
+1. Open your Render service (`taskpulse-api`) > Settings > Deploy Hook > Create hook.
+2. Copy URL to `RENDER_TASKPULSE_WEB_DEPLOY_HOOK_URL`.
+3. Repeat for worker service (`taskpulse-horizon`) and save in `RENDER_TASKPULSE_WORKER_DEPLOY_HOOK_URL`.
+
+To connect the portfolio button to the deployed API in GitHub Pages:
+
+1. Set this GitHub secret in this repo:
+
+```text
+VITE_TASKPULSE_API_BASE=https://<your-taskpulse-api>.onrender.com
+```
+
+2. Optional docs URL secret:
+
+```text
+VITE_TASKPULSE_DOCS_URL=https://<your-taskpulse-api>.onrender.com/docs/taskpulse
+```
+
+3. Push to `main` so the Pages workflow rebuilds frontend with the new API URL.
+
 ## Important Windows note
 
 Horizon requires `pcntl` and `posix`, which are not available in standard Windows PHP CLI.

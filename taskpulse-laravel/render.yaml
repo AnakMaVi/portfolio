@@ -41,12 +41,12 @@ services:
           property: password
       - key: REDIS_HOST
         fromService:
-          type: redis
+          type: keyvalue
           name: taskpulse-redis
           property: host
       - key: REDIS_PORT
         fromService:
-          type: redis
+          type: keyvalue
           name: taskpulse-redis
           property: port
 
