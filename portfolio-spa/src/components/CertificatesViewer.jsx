@@ -1,59 +1,162 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 
+function tituloAsset(fileName) {
+  return new URL(`../../TITULOS/${fileName}`, import.meta.url).href
+}
+
 export const CERTIFICADOS_MOCK = [
   {
     id: 'cert-01',
-    titulo: 'Java Advanced',
+    titulo: 'Java Advanced Certification Course',
     entidadEmisora: 'Programming Hub',
-    anioEmision: 2024,
-    tags: ['Java', 'OOP', 'Concurrency'],
-    thumbnailUrl: 'https://picsum.photos/seed/cert-java-01/720/460',
-    fullImageUrl: 'https://picsum.photos/seed/cert-java-01/1920/1280'
+    anioEmision: 2022,
+    tags: ['Java', 'Backend', 'POO'],
+    thumbnailUrl: tituloAsset('Java Advanced.jpg'),
+    fullImageUrl: tituloAsset('Java Advanced.jpg')
   },
   {
     id: 'cert-02',
-    titulo: 'PHP y Programación Orientada a Objetos',
+    titulo: 'PHP Certification Course',
     entidadEmisora: 'Programming Hub',
-    anioEmision: 2024,
-    tags: ['PHP', 'OOP', 'Backend'],
-    thumbnailUrl: 'https://picsum.photos/seed/cert-php-02/720/460',
-    fullImageUrl: 'https://picsum.photos/seed/cert-php-02/1920/1280'
+    anioEmision: 2022,
+    tags: ['PHP', 'Backend', 'Web'],
+    thumbnailUrl: tituloAsset('PHP.jpg'),
+    fullImageUrl: tituloAsset('PHP.jpg')
   },
   {
     id: 'cert-03',
-    titulo: 'Dynamics 365 Business Central - AL',
+    titulo: 'Aprenda las instrucciones de AL en Dynamics 365 Business Central',
     entidadEmisora: 'Microsoft',
-    anioEmision: 2025,
-    tags: ['AL', 'ERP', 'Extensions'],
-    thumbnailUrl: 'https://picsum.photos/seed/cert-ms-03/720/460',
-    fullImageUrl: 'https://picsum.photos/seed/cert-ms-03/1920/1280'
+    anioEmision: 2024,
+    tags: ['Dynamics 365', 'AL', 'Business Central'],
+    thumbnailUrl: tituloAsset('Aprenda las instrucciones de AL en Dynamics 365  Business Central.jpg'),
+    fullImageUrl: tituloAsset('Aprenda las instrucciones de AL en Dynamics 365  Business Central.jpg')
   },
   {
     id: 'cert-04',
     titulo: 'Ciberseguridad en Teletrabajo',
     entidadEmisora: 'INCIBE',
-    anioEmision: 2025,
-    tags: ['Security', 'Awareness', 'Risk'],
-    thumbnailUrl: 'https://picsum.photos/seed/cert-sec-04/720/460',
-    fullImageUrl: 'https://picsum.photos/seed/cert-sec-04/1920/1280'
+    anioEmision: 2021,
+    tags: ['Ciberseguridad', 'Teletrabajo', 'Buenas prácticas'],
+    thumbnailUrl: tituloAsset('ciberseguridad en el teletrabajo.jpg'),
+    fullImageUrl: tituloAsset('ciberseguridad en el teletrabajo.jpg')
   },
   {
     id: 'cert-05',
-    titulo: 'Edge Computing Fundamentals',
+    titulo: 'Edge Computing Certification Course',
     entidadEmisora: 'Programming Hub',
-    anioEmision: 2024,
-    tags: ['Edge', 'Performance', 'Distributed'],
-    thumbnailUrl: 'https://picsum.photos/seed/cert-edge-05/720/460',
-    fullImageUrl: 'https://picsum.photos/seed/cert-edge-05/1920/1280'
+    anioEmision: 2022,
+    tags: ['Edge Computing', 'Arquitectura distribuida', 'Rendimiento'],
+    thumbnailUrl: tituloAsset('Edge Computing.jpg'),
+    fullImageUrl: tituloAsset('Edge Computing.jpg')
   },
   {
     id: 'cert-06',
     titulo: 'Desarrollo Móvil con Android Studio',
     entidadEmisora: 'Universidad Complutense de Madrid',
+    anioEmision: 2021,
+    tags: ['Android', 'Desarrollo móvil', 'Google Actívate'],
+    thumbnailUrl: tituloAsset('Desarrollo de apps móviles.jpg'),
+    fullImageUrl: tituloAsset('Desarrollo de apps móviles.jpg')
+  },
+  {
+    id: 'cert-07',
+    titulo: 'Agregar nuevos objetos a Dynamics 365 Business Central',
+    entidadEmisora: 'Microsoft',
+    anioEmision: 2024,
+    tags: ['Dynamics 365', 'AL', 'Objetos'],
+    thumbnailUrl: tituloAsset('Agregar nuevos objetos a Dynamics 365 Business  Central.jpg'),
+    fullImageUrl: tituloAsset('Agregar nuevos objetos a Dynamics 365 Business  Central.jpg')
+  },
+  {
+    id: 'cert-08',
+    titulo: 'Ampliar la funcionalidad mediante el uso de eventos en Dynamics 365 Business Central',
+    entidadEmisora: 'Microsoft',
+    anioEmision: 2024,
+    tags: ['Dynamics 365', 'Eventos', 'Extensiones'],
+    thumbnailUrl: tituloAsset('Ampliar la funcionalidad mediante el uso de eventos  en Dynamics 365 Business Central.jpg'),
+    fullImageUrl: tituloAsset('Ampliar la funcionalidad mediante el uso de eventos  en Dynamics 365 Business Central.jpg')
+  },
+  {
+    id: 'cert-09',
+    titulo: 'Inicializar datos durante la instalación de extensiones en Dynamics 365 Business Central',
+    entidadEmisora: 'Microsoft',
+    anioEmision: 2024,
+    tags: ['Dynamics 365', 'Instalación', 'Extensiones'],
+    thumbnailUrl: tituloAsset('Inicializar datos durante la instalación de extensiones  en Dynamics 365 Business Central.jpg'),
+    fullImageUrl: tituloAsset('Inicializar datos durante la instalación de extensiones  en Dynamics 365 Business Central.jpg')
+  },
+  {
+    id: 'cert-10',
+    titulo: 'Introducción a la configuración asistida y a la información sobre herramientas en Dynamics 365 Business Central',
+    entidadEmisora: 'Microsoft',
+    anioEmision: 2024,
+    tags: ['Dynamics 365', 'Configuración', 'Productividad'],
+    thumbnailUrl: tituloAsset('Introducción a la configuración asistida y a la  información sobre herramientas en Dynamics 365  Business Central.jpg'),
+    fullImageUrl: tituloAsset('Introducción a la configuración asistida y a la  información sobre herramientas en Dynamics 365  Business Central.jpg')
+  },
+  {
+    id: 'cert-11',
+    titulo: 'Ampliar objetos de tabla y página existentes en Dynamics 365 Business Central',
+    entidadEmisora: 'Microsoft',
+    anioEmision: 2024,
+    tags: ['Dynamics 365', 'Tablas', 'Páginas'],
+    thumbnailUrl: tituloAsset('Logros_OBJ_TABL_AL - AnakMartel-9691 _ Microsoft Learn.jpg'),
+    fullImageUrl: tituloAsset('Logros_OBJ_TABL_AL - AnakMartel-9691 _ Microsoft Learn.jpg')
+  },
+  {
+    id: 'cert-12',
+    titulo: 'Llamar a métodos desde la biblioteca de clases .NET mediante C#',
+    entidadEmisora: 'Microsoft',
     anioEmision: 2023,
-    tags: ['Android', 'Mobile', 'UI'],
-    thumbnailUrl: 'https://picsum.photos/seed/cert-android-06/720/460',
-    fullImageUrl: 'https://picsum.photos/seed/cert-android-06/1920/1280'
+    tags: ['C#', '.NET', 'Interoperabilidad'],
+    thumbnailUrl: tituloAsset('Llamar a métodos desde la biblioteca de clases .NET mediante CSharp.jpg'),
+    fullImageUrl: tituloAsset('Llamar a métodos desde la biblioteca de clases .NET mediante CSharp.jpg')
+  },
+  {
+    id: 'cert-13',
+    titulo: 'Escritura de código de C# por primera vez',
+    entidadEmisora: 'Microsoft',
+    anioEmision: 2023,
+    tags: ['C#', 'Fundamentos', '.NET'],
+    thumbnailUrl: tituloAsset('CSharp Escritura de código de CSharp por primera vez.jpg'),
+    fullImageUrl: tituloAsset('CSharp Escritura de código de CSharp por primera vez.jpg')
+  },
+  {
+    id: 'cert-14',
+    titulo: 'Java Certification Course',
+    entidadEmisora: 'Programming Hub',
+    anioEmision: 2022,
+    tags: ['Java', 'Fundamentos', 'POO'],
+    thumbnailUrl: tituloAsset('JAVA.jpg'),
+    fullImageUrl: tituloAsset('JAVA.jpg')
+  },
+  {
+    id: 'cert-15',
+    titulo: 'Campus becado de programación y robótica submarina',
+    entidadEmisora: 'EDUROVS / ROY STEAM / PLOCAN',
+    anioEmision: 2018,
+    tags: ['Arduino', 'Robótica', 'Programación'],
+    thumbnailUrl: tituloAsset('Campus becado programación y robotica submarina.jpg'),
+    fullImageUrl: tituloAsset('Campus becado programación y robotica submarina.jpg')
+  },
+  {
+    id: 'cert-16',
+    titulo: 'Certificado de superación de prueba de certificación de idiomas (B1)',
+    entidadEmisora: 'Gobierno de Canarias',
+    anioEmision: 2019,
+    tags: ['Inglés', 'B1', 'Certificación'],
+    thumbnailUrl: tituloAsset('Certificado superación B1.jpg'),
+    fullImageUrl: tituloAsset('Certificado superación B1.jpg')
+  },
+  {
+    id: 'cert-17',
+    titulo: 'Ampliar objetos de tabla y página existentes en Dynamics 365 Business Central',
+    entidadEmisora: 'Microsoft',
+    anioEmision: 2024,
+    tags: ['Dynamics 365', 'AL', 'Tablas y páginas'],
+    thumbnailUrl: tituloAsset('Ampliar objetos de tabla y página existentes en Dynamics 365 Business Central.jpg'),
+    fullImageUrl: tituloAsset('Ampliar objetos de tabla y página existentes en Dynamics 365 Business Central.jpg')
   }
 ]
 

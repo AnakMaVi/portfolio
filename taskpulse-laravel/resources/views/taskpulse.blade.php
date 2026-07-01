@@ -328,7 +328,7 @@
     <section class="hero">
         <h1>TaskPulse | Dashboard Operativa Full Stack</h1>
         <p>
-            Vista dedicada del backend con datos reales de Supabase, foco en metricas de sprint,
+            Vista dedicada del backend con datos reales de Supabase, foco en métricas de sprint,
             pipeline kanban y observabilidad de transiciones. Incluye Quick API Test para validar endpoints en vivo.
         </p>
         <div class="actions">
@@ -357,19 +357,19 @@
         <article class="card">
             <div class="kpi-label">Metric Logs</div>
             <div class="kpi-value">{{ $metricsCount }}</div>
-            <div class="kpi-sub">Snapshots de calculo historico</div>
+            <div class="kpi-sub">Snapshots de cálculo histórico</div>
         </article>
     </section>
 
     <section class="grid">
         <article class="panel">
-            <h2>Distribucion de sprints por estado</h2>
-            <p class="muted top-gap">Lectura rapida del backlog estrategico (planned), ejecucion (active) y cierre (done).</p>
+            <h2>Distribución de sprints por estado</h2>
+            <p class="muted top-gap">Lectura rápida del backlog estratégico (planned), ejecución (active) y cierre (done).</p>
             <div id="statusChart" class="chart"></div>
         </article>
 
         <article class="panel">
-            <h2>Distribucion de tareas por etapa</h2>
+            <h2>Distribución de tareas por etapa</h2>
             <p class="muted top-gap">Carga operativa actual por columna kanban.</p>
             <div id="stageChart" class="chart"></div>
         </article>
@@ -377,21 +377,21 @@
 
     <section class="grid">
         <article class="panel">
-            <h2>Actividad diaria de transiciones (14 dias)</h2>
+            <h2>Actividad diaria de transiciones (14 días)</h2>
             <p class="muted top-gap">Pulso de movimiento de tareas en el pipeline.</p>
             <div id="activityChart" class="chart"></div>
         </article>
 
         <article class="panel">
-            <h2>Duracion media por etapa (horas)</h2>
-            <p class="muted top-gap">Derivado del ultimo metric log calculado.</p>
+            <h2>Duración media por etapa (horas)</h2>
+            <p class="muted top-gap">Derivado del último metric log calculado.</p>
             <div id="durationChart" class="chart"></div>
         </article>
     </section>
 
     <section class="grid">
         <article class="panel">
-            <h2>Ultimos sprints</h2>
+            <h2>Últimos sprints</h2>
             <div class="table-wrap">
                 <table>
                     <thead>
@@ -418,7 +418,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="6" class="muted">Sin datos todavia. Ejecuta la semilla demo para poblar el sistema.</td>
+                            <td colspan="6" class="muted">Sin datos todavía. Ejecuta la semilla demo para poblar el sistema.</td>
                         </tr>
                     @endforelse
                     </tbody>
@@ -427,7 +427,7 @@
         </article>
 
         <article class="panel">
-            <h2>Resumen ultimo calculo de metricas</h2>
+            <h2>Resumen último cálculo de métricas</h2>
             <div class="metric-grid">
                 <div class="metric">
                     <div class="muted">Sprint</div>
@@ -442,14 +442,14 @@
                     <div class="n">{{ $latestSummary['samples_count'] }}</div>
                 </div>
                 <div class="metric">
-                    <div class="muted">Media por transicion</div>
+                    <div class="muted">Media por transición</div>
                     <div class="n">{{ round($latestSummary['average_seconds_per_transition'] / 3600, 2) }}h</div>
                 </div>
             </div>
 
             <div class="quick">
                 <strong>Quick API Test</strong>
-                <p class="muted top-gap">Mantiene la prueba rapida de endpoint para depuracion funcional.</p>
+                <p class="muted top-gap">Mantiene la prueba rápida de endpoint para depuración funcional.</p>
                 <div class="row">
                     <label for="sprintId">Sprint ID</label>
                     <input id="sprintId" type="number" value="{{ $resolvedSprintId > 0 ? $resolvedSprintId : 1 }}" min="1">
@@ -472,7 +472,7 @@
                             <div id="lvStages" class="n">-</div>
                         </div>
                         <div class="latest-card">
-                            <div class="muted">Media por transicion</div>
+                            <div class="muted">Media por transición</div>
                             <div id="lvAvg" class="n">-</div>
                         </div>
                     </div>
@@ -632,7 +632,7 @@
         lvAvg.textContent = `${(avgSeconds / 3600).toFixed(2)}h`;
 
         if (rows.length === 0) {
-            latestStageChart.innerHTML = '<p class="muted">Sin datos de etapas en el ultimo metric log.</p>';
+            latestStageChart.innerHTML = '<p class="muted">Sin datos de etapas en el último metric log.</p>';
             latestVisual.style.display = 'block';
             return;
         }
@@ -665,7 +665,7 @@
         });
 
         latestStageChart.innerHTML = `
-            <svg viewBox="0 0 ${width} ${height}" role="img" aria-label="Duracion media por etapa">
+            <svg viewBox="0 0 ${width} ${height}" role="img" aria-label="Duración media por etapa">
                 <line x1="${padL}" y1="${padT + usableH}" x2="${width - padR}" y2="${padT + usableH}" stroke="#94a3b8" stroke-width="1" />
                 ${bars}
                 ${values}

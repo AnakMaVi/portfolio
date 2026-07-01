@@ -6,7 +6,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
-  <title>ChronoStream | Documentacion Tecnica</title>
+  <title>ChronoStream | Documentación técnica</title>
   <style>
     :root {
       color-scheme: light;
@@ -153,9 +153,9 @@
 <body>
 <div class="wrap">
   <section class="hero">
-    <h1>ChronoStream | Documentacion Tecnica Detallada</h1>
+    <h1>ChronoStream | Documentación técnica detallada</h1>
     <p>
-      Documento operativo del motor criptografico ChronoStream: arquitectura, contrato Rust/WASM,
+      Documento operativo del motor criptográfico ChronoStream: arquitectura, contrato Rust/WASM,
       benchmark en navegador, flujo end-to-end y pipeline de build reproducible.
     </p>
     <div class="stack">
@@ -167,37 +167,37 @@
     </div>
     <div class="toc">
       <a href="#arquitectura">1. Arquitectura</a>
-      <a href="#contrato">2. Contrato del modulo</a>
+      <a href="#contrato">2. Contrato del módulo</a>
       <a href="#demo">3. Flujo demo end-to-end</a>
-      <a href="#benchmark">4. Benchmark y metricas</a>
+      <a href="#benchmark">4. Benchmark y métricas</a>
       <a href="#docker">5. Build y Docker</a>
-      <a href="#seguridad">6. Seguridad y limites</a>
-      <a href="#roadmap">7. Roadmap tecnico</a>
+      <a href="#seguridad">6. Seguridad y límites</a>
+      <a href="#roadmap">7. Roadmap técnico</a>
     </div>
   </section>
 
   <section id="arquitectura" class="section card">
     <h2>1. Arquitectura</h2>
     <p>
-      ChronoStream separa computo nativo y orquestacion UI: React controla el flujo de interaccion
-      y el modulo WASM ejecuta cifrado/hash en CPU local del navegador.
+      ChronoStream separa cómputo nativo y orquestación UI: React controla el flujo de interacción
+      y el módulo WASM ejecuta cifrado/hash en CPU local del navegador.
     </p>
     <div class="grid">
       <div>
         <h3>Componentes</h3>
         <ul>
-          <li>Modulo Rust compilado a <code>.wasm</code></li>
+          <li>Módulo Rust compilado a <code>.wasm</code></li>
           <li>Bindings JS con <code>wasm-bindgen</code></li>
           <li>Componente <code>WasmCryptor</code> para demo en vivo</li>
-          <li>Documentacion embebida en <code>/docs/chronostream.html</code></li>
+          <li>Documentación embebida en <code>/docs/chronostream.html</code></li>
         </ul>
       </div>
       <div>
         <h3>Principios</h3>
         <ul>
           <li>Demo totalmente browser-side (sin backend)</li>
-          <li>Medicion transparente en microsegundos</li>
-          <li>Validacion visible para reclutador</li>
+          <li>Medición transparente en microsegundos</li>
+          <li>Validación visible para reclutador</li>
           <li>Pipeline reproducible local y contenedor</li>
         </ul>
       </div>
@@ -205,7 +205,7 @@
   </section>
 
   <section id="contrato" class="section card">
-    <h2>2. Contrato del modulo</h2>
+    <h2>2. Contrato del módulo</h2>
     <div class="grid">
       <div>
         <h3>Funciones exportadas</h3>
@@ -215,7 +215,7 @@
         </ul>
       </div>
       <div>
-        <h3>Ubicacion</h3>
+        <h3>Ubicación</h3>
         <ul>
           <li><code>chronostream-wasm/src/lib.rs</code></li>
           <li><code>chronostream-wasm/Cargo.toml</code></li>
@@ -228,11 +228,11 @@
   <section id="demo" class="section card">
     <h2>3. Flujo demo end-to-end</h2>
     <p>
-      La demo ejecuta un recorrido completo con trazabilidad visual para entrevista tecnica.
+      La demo ejecuta un recorrido completo con trazabilidad visual para entrevista técnica.
     </p>
     <pre>Paso 1: Cifrar payload con WASM
 Paso 2: Descifrar y validar round-trip con la misma clave
-Paso 3: Generar hash SHA-256 del bloque de verificacion
+Paso 3: Generar hash SHA-256 del bloque de verificación
 Paso 4: Mostrar estado de cada paso + latencias</pre>
     <div class="kpis">
       <div class="kpi">
@@ -240,7 +240,7 @@ Paso 4: Mostrar estado de cada paso + latencias</pre>
         <strong class="good">End-to-End Operativo</strong>
       </div>
       <div class="kpi">
-        Validacion
+        Validación
         <strong>Round-trip si/no</strong>
       </div>
       <div class="kpi">
@@ -251,12 +251,12 @@ Paso 4: Mostrar estado de cada paso + latencias</pre>
   </section>
 
   <section id="benchmark" class="section card">
-    <h2>4. Benchmark y metricas</h2>
+    <h2>4. Benchmark y métricas</h2>
     <p>
       Modo benchmark: 100 iteraciones para reducir ruido y comparar WASM vs JS baseline con percentiles.
     </p>
     <ul>
-      <li><code>p50</code>: comportamiento tipico</li>
+      <li><code>p50</code>: comportamiento típico</li>
       <li><code>p95</code>: cola de latencia</li>
       <li><code>speedup JS/WASM</code>: indicador relativo por percentil</li>
     </ul>
@@ -275,22 +275,22 @@ wasm-pack build --target web --release</pre>
   </section>
 
   <section id="seguridad" class="section card">
-    <h2>6. Seguridad y limites</h2>
+    <h2>6. Seguridad y límites</h2>
     <ul>
-      <li>El cifrado XOR es demostrativo, no apto para produccion.</li>
+      <li>El cifrado XOR es demostrativo, no apto para producción.</li>
       <li>La clave vive en memoria del navegador durante el proceso.</li>
-      <li>No registrar secretos en logs ni telemetria.</li>
+      <li>No registrar secretos en logs ni telemetría.</li>
       <li>Upgrade recomendado: AES-GCM o ChaCha20-Poly1305.</li>
     </ul>
   </section>
 
   <section id="roadmap" class="section card">
-    <h2>7. Roadmap tecnico</h2>
+    <h2>7. Roadmap técnico</h2>
     <ul>
       <li>Datasets de benchmark escalables (256 KB, 1 MB, 5 MB).</li>
-      <li>Grafica temporal multi-ronda WASM vs JS.</li>
+      <li>Gráfica temporal multi-ronda WASM vs JS.</li>
       <li>Offloading a Web Worker para aislar UI thread.</li>
-      <li>Capa criptografica enterprise y ciclo seguro de claves.</li>
+      <li>Capa criptográfica enterprise y ciclo seguro de claves.</li>
     </ul>
     <p>
       Volver al portfolio: <a href="../">Inicio del portfolio</a>

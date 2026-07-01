@@ -6,7 +6,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
-    <title>TaskPulse | Documentacion Tecnica</title>
+    <title>TaskPulse | Documentación técnica</title>
     <style>
         :root {
             color-scheme: light;
@@ -125,10 +125,10 @@
 <body>
 <div class="wrap">
     <section class="hero">
-        <h1>TaskPulse | Documentacion Tecnica Detallada</h1>
+        <h1>TaskPulse | Documentación técnica detallada</h1>
         <p>
             Documento operativo del proyecto SaaS TaskPulse: arquitectura, modelo de datos,
-            endpoints, calculo de metricas, comandos, despliegue y validaciones.
+            endpoints, cálculo de métricas, comandos, despliegue y validaciones.
         </p>
         <div class="stack">
             <span class="chip">Laravel 11</span>
@@ -141,7 +141,7 @@
             <a href="#arquitectura">1. Arquitectura</a>
             <a href="#modelo-datos">2. Modelo de datos</a>
             <a href="#endpoints">3. Endpoints API</a>
-            <a href="#metricas">4. Calculo de metricas</a>
+            <a href="#metricas">4. Cálculo de métricas</a>
             <a href="#comandos">5. Comandos y seed</a>
             <a href="#despliegue">6. Despliegue y entorno</a>
             <a href="#seguridad">7. Seguridad y hardening</a>
@@ -151,7 +151,7 @@
     <section id="arquitectura" class="section card">
         <h2>1. Arquitectura</h2>
         <p>
-            TaskPulse esta diseniado como backend API para calculo de productividad Kanban por sprint.
+            TaskPulse está diseñado como backend API para cálculo de productividad Kanban por sprint.
             El flujo principal: registrar transiciones de etapas por tarea, consolidar tiempos en lote y persistir snapshots.
         </p>
         <div class="grid">
@@ -159,7 +159,7 @@
                 <h3>Componentes</h3>
                 <ul>
                     <li>API REST versionada en <code>/api/v1</code></li>
-                    <li>Job <code>CalculateSprintMetrics</code> para consolidacion</li>
+                    <li>Job <code>CalculateSprintMetrics</code> para consolidación</li>
                     <li>Persistencia de snapshots en <code>sprint_metric_logs</code></li>
                     <li>Dashboard operativa web en raiz y docs en <code>/docs/taskpulse</code></li>
                 </ul>
@@ -167,8 +167,8 @@
             <div>
                 <h3>Principios</h3>
                 <ul>
-                    <li>Separacion entre captura de eventos y analitica agregada</li>
-                    <li>Recalculo idempotente por sprint</li>
+                    <li>Separación entre captura de eventos y analítica agregada</li>
+                    <li>Recálculo idempotente por sprint</li>
                     <li>Errores API sanitizados sin trazas internas</li>
                     <li>Variables de entorno para URLs y conexiones</li>
                 </ul>
@@ -188,9 +188,9 @@
                 </ul>
             </div>
             <div>
-                <h3>Tabla analitica</h3>
+                <h3>Tabla analítica</h3>
                 <ul>
-                    <li><code>sprint_metric_logs</code>: snapshot por ejecucion</li>
+                    <li><code>sprint_metric_logs</code>: snapshot por ejecución</li>
                     <li><code>stage_metrics</code> (json): muestras, min, max, total y media</li>
                     <li><code>pipeline_summary</code> (json): resumen global por sprint</li>
                 </ul>
@@ -209,14 +209,14 @@ POST /sprints/{sprintId}/metrics/recalculate</pre>
     </section>
 
     <section id="metricas" class="section card">
-        <h2>4. Calculo de metricas</h2>
+        <h2>4. Cálculo de métricas</h2>
         <p>
             El job recorre transiciones cerradas (<code>entered_at</code> y <code>left_at</code> no nulos),
             calcula segundos por etapa y guarda agregados por sprint.
         </p>
         <pre>$durationInSeconds = max(0, $enteredAt-&gt;diffInSeconds($leftAt));</pre>
         <ul>
-            <li><code>samples</code>: numero de transiciones por etapa</li>
+            <li><code>samples</code>: número de transiciones por etapa</li>
             <li><code>total_seconds</code>: suma de tiempos</li>
             <li><code>average_seconds</code>: promedio por etapa</li>
             <li><code>min_seconds</code>, <code>max_seconds</code>: extremos observados</li>
@@ -229,7 +229,7 @@ POST /sprints/{sprintId}/metrics/recalculate</pre>
 php artisan taskpulse:metrics:recalculate 1 --sync
 php artisan migrate --force</pre>
         <p>
-            El seed demo en espanol genera sprints, tareas, transiciones y recalcula metricas para visualizacion inmediata.
+            El seed demo en español genera sprints, tareas, transiciones y recalcula métricas para visualización inmediata.
         </p>
     </section>
 
@@ -245,12 +245,12 @@ php artisan migrate --force</pre>
                 </ul>
             </div>
             <div>
-                <h3>Produccion</h3>
+                <h3>Producción</h3>
                 <ul>
                     <li>API + worker separados</li>
                     <li>DB PostgreSQL gestionada</li>
                     <li>Redis para cola/cache</li>
-                        <li>Monitoreo y backups automaticos</li>
+                        <li>Monitoreo y backups automáticos</li>
                 </ul>
             </div>
         </div>
@@ -261,7 +261,7 @@ php artisan migrate --force</pre>
         <ul>
             <li>Respuestas API sin stack traces para cliente</li>
             <li>Control de recursos inexistentes con 404 uniforme</li>
-            <li>Separacion de claves publicas/secretas en frontend/backend</li>
+            <li>Separación de claves públicas/secretas en frontend/backend</li>
             <li>Uso de variables de entorno para endpoints sensibles</li>
         </ul>
         <p>
