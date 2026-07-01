@@ -14,13 +14,30 @@ jobs:
     steps:
       - name: Trigger Render deploy (web)
         env:
-          RENDER_DEPLOY_HOOK_URL: ${{ secrets.RENDER_TASKPULSE_WEB_DEPLOY_HOOK_URL }}
+          RENDER_TASKPULSE_WEB_DEPLOY_HOOK_URL: ${{ secrets.RENDER_TASKPULSE_WEB_DEPLOY_HOOK_URL }}
         run: |
-          if [ -z "$RENDER_DEPLOY_HOOK_URL" ]; then
+          WEB_HOOK_URL="$RENDER_TASKPULSE_WEB_DEPLOY_HOOK_URL"
+          WEB_HOOK_URL="$(echo "$WEB_HOOK_URL" | tr -d '[:space:]')"
+
+          if [ -z "$WEB_HOOK_URL" ]; then
             echo "Missing secret: RENDER_TASKPULSE_WEB_DEPLOY_HOOK_URL"
             exit 1
           fi
-          curl -fsS -X POST "$RENDER_DEPLOY_HOOK_URL"
+
+          case "$WEB_HOOK_URL" in
+            https://api.render.com/deploy/*|https://render.com/deploy/*)
+              ;;
+            *)
+              echo "Invalid Render deploy hook URL format. Expected a Deploy Hook URL from Render settings (https://api.render.com/deploy/...)."
+              echo "Current value does not look like a deploy hook; refusing to call it."
+              exit 1
+              ;;
+          esac
+
+          curl -fsS -X POST "$WEB_HOOK_URL" || {
+            echo "Render deploy hook call failed. Verify the exact Deploy Hook URL in repository secrets."
+            exit 1
+          }
 
       - name: Trigger Render deploy (worker)
         env:
