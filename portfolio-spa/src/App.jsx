@@ -219,7 +219,6 @@ function ViewPanel({ activeView }) {
         <div className="pointer-events-none absolute -bottom-24 -left-24 h-64 w-64 rounded-full bg-indigo-100/70 blur-3xl" />
 
         <div className="relative space-y-4">
-          <p className="text-xs uppercase tracking-[0.24em] text-sky-600">Vista activa</p>
           <h1 className="m-0 text-3xl font-bold leading-tight tracking-tight text-slate-900 sm:text-5xl">
             {content.title}
           </h1>
@@ -299,20 +298,22 @@ function App() {
       <main className="mx-auto flex w-full max-w-6xl flex-col gap-8 px-4 pb-10 pt-28 sm:px-6 sm:pt-32">
         <ViewPanel activeView={activeView} />
 
-        <section className="grid gap-4 sm:grid-cols-2">
-          <article className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
-            <h3 className="m-0 text-base font-semibold text-slate-900">Stack Base</h3>
-            <p className="mt-2 text-sm leading-relaxed text-slate-600">
-              React + Vite + Tailwind + Framer Motion con arquitectura preparada para escalar a proyectos y playground interactivo.
-            </p>
-          </article>
-          <article className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
-            <h3 className="m-0 text-base font-semibold text-slate-900">Enfoque Mobile-First</h3>
-            <p className="mt-2 text-sm leading-relaxed text-slate-600">
-              Navegacion colapsable, targets tactiles consistentes y distribucion adaptable para pantallas pequenas y escritorio.
-            </p>
-          </article>
-        </section>
+        {activeView === 'Inicio' ? (
+          <section className="grid gap-4 sm:grid-cols-2">
+            <article className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
+              <h3 className="m-0 text-base font-semibold text-slate-900">Stack Base</h3>
+              <p className="mt-2 text-sm leading-relaxed text-slate-600">
+                React + Vite + Tailwind + Framer Motion con arquitectura preparada para escalar a proyectos y playground interactivo.
+              </p>
+            </article>
+            <article className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
+              <h3 className="m-0 text-base font-semibold text-slate-900">Enfoque Mobile-First</h3>
+              <p className="mt-2 text-sm leading-relaxed text-slate-600">
+                Navegacion colapsable, targets tactiles consistentes y distribucion adaptable para pantallas pequenas y escritorio.
+              </p>
+            </article>
+          </section>
+        ) : null}
       </main>
     </div>
   )
