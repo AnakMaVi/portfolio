@@ -265,7 +265,7 @@ php artisan migrate --force</pre>
             <li>Uso de variables de entorno para endpoints sensibles</li>
         </ul>
         <p>
-            Volver a dashboard: <a href="/">http://127.0.0.1:8000/</a>
+            Volver a dashboard: <a href="https://anakmavi.github.io/portfolio/">https://anakmavi.github.io/portfolio/</a>
         </p>
     </section>
 </div>
